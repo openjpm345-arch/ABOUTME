@@ -621,3 +621,11 @@ body.love-open{overflow:hidden}
   45%{opacity:1;transform:translate(-50%,-50%) scale(8)}
   100%{opacity:0;transform:translate(-50%,-50%) scale(16)}
 }
+
+
+/* Let the burst's light overlap the card reveal, so the ID card forms from the glow. */
+.love-modal.cinema-card-forming .love-cinema{opacity:.08!important;transition:opacity .42s ease!important;}
+.love-modal.cinema-card-forming .love-card{z-index:30!important;opacity:1!important;pointer-events:auto!important;}
+.love-modal.cinema-card-forming .love-cinema-burst span{animation:particleBurstFinal .95s cubic-bezier(.12,.7,.18,1) both!important;}
+.love-modal.cinema-card-forming .love-card:before{content:"";position:absolute;inset:-3px;border-radius:inherit;pointer-events:none;z-index:5;background:linear-gradient(115deg,transparent 20%,#fff9 48%,#ff6bd477 53%,transparent 72%);background-size:220% 100%;mix-blend-mode:screen;animation:idCardLightSweep .9s ease-out both;}
+@keyframes idCardLightSweep{0%{opacity:0;background-position:100% 0;filter:blur(8px)}35%{opacity:1}100%{opacity:0;background-position:0 0;filter:blur(0)}}
