@@ -311,46 +311,46 @@ body.love-open{overflow:hidden}
 .love-cinema-burst span:nth-child(11){--bx:-155px;--by:-20px}
 .love-cinema-burst span:nth-child(12){--bx:65px;--by:95px}
 .love-cinema:has(.love-cinema-progress span){--finale-start:4.9s}
-.love-cinema .love-cinema-progress span{animation:loveCinemaLoad 8s linear both}
+.love-cinema .love-cinema-progress span{animation:loveCinemaLoad 10s linear both}
 .love-cinema:has(.love-cinema-progress span){ }
-.love-cinema:has(.love-cinema-progress span) .love-cinema-heart{animation:cinemaHeartForm 8s cubic-bezier(.16,.8,.22,1) both,heartChargeAndBurst 8s ease-in-out both}
-.love-cinema:has(.love-cinema-progress span) .love-cinema-giant-heart{animation:giantHeartBloom 8s cubic-bezier(.16,.8,.22,1) both,giantHeartBurst 8s ease-in-out both}
+.love-cinema:has(.love-cinema-progress span) .love-cinema-heart{animation:cinemaHeartForm 10s cubic-bezier(.16,.8,.22,1) both,heartChargeAndBurst 10s ease-in-out both}
+.love-cinema:has(.love-cinema-progress span) .love-cinema-giant-heart{animation:giantHeartBloom 10s cubic-bezier(.16,.8,.22,1) both,giantHeartBurst 10s ease-in-out both}
 .love-cinema:has(.love-cinema-progress span) .love-cinema-burst{animation:burstStage 10s linear both}
 .love-cinema:has(.love-cinema-progress span) .love-cinema-burst span{animation:burstHeartPiece 10s cubic-bezier(.15,.7,.25,1) both}
 .love-cinema:has(.love-cinema-progress span) .love-cinema-reform{animation:reformBigHeart 10s cubic-bezier(.15,.8,.2,1) both}
 .love-cinema:has(.love-cinema-progress span) .love-cinema-float-hearts{animation:hideFloatHearts 10s linear both}
 @keyframes heartChargeAndBurst{
-  0%,80%{opacity:1;transform:scale(1)}
-  84%{opacity:1;transform:scale(1.5)}
-  88%{opacity:0;transform:scale(2.6);filter:blur(9px)}
+  0%,67%{opacity:1;transform:scale(1)}
+  70%{opacity:1;transform:scale(1.5)}
+  74%{opacity:0;transform:scale(2.6);filter:blur(9px)}
   100%{opacity:0;transform:scale(2.6)}
 }
 @keyframes giantHeartBurst{
-  0%,78%{opacity:.25}
-  84%{opacity:.6;transform:translate(-50%,-50%) scale(1.2)}
-  89%{opacity:0;transform:translate(-50%,-50%) scale(1.8);filter:blur(15px)}
+  0%,65%{opacity:.25}
+  70%{opacity:.6;transform:translate(-50%,-50%) scale(1.2)}
+  75%{opacity:0;transform:translate(-50%,-50%) scale(1.8);filter:blur(15px)}
   100%{opacity:0}
 }
 @keyframes burstStage{
-  0%,87%{opacity:0}
-  89%,96%{opacity:1}
-  99%,100%{opacity:0}
+  0%,68%{opacity:0}
+  70%,78%{opacity:1}
+  82%,100%{opacity:0}
 }
 @keyframes burstHeartPiece{
-  0%,87%{opacity:0;transform:translate(0,0) scale(.1)}
-  89%{opacity:1;transform:translate(0,0) scale(1.1)}
-  94%{opacity:1;transform:translate(var(--bx),var(--by)) scale(.9) rotate(18deg)}
-  98%{opacity:1;transform:translate(0,0) scale(.45) rotate(-12deg)}
-  100%{opacity:0;transform:translate(0,0) scale(.1)}
+  0%,68%{opacity:0;transform:translate(0,0) scale(.1)}
+  70%{opacity:1;transform:translate(0,0) scale(1.1)}
+  76%{opacity:1;transform:translate(var(--bx),var(--by)) scale(.9) rotate(18deg)}
+  82%{opacity:1;transform:translate(0,0) scale(.45) rotate(-12deg)}
+  86%,100%{opacity:0;transform:translate(0,0) scale(.1)}
 }
 .love-cinema-reform{position:absolute;z-index:4;left:50%;top:43%;transform:translate(-50%,-50%) scale(.05);font-size:clamp(8rem,44vw,19rem);line-height:.85;color:#ff8bda;opacity:0;text-shadow:0 0 20px #ff4ac9,0 0 55px #e348ff,0 0 110px #9e59ff;pointer-events:none}
 @keyframes reformBigHeart{
-  0%,91%{opacity:0;transform:translate(-50%,-50%) scale(.05) rotate(-30deg);filter:blur(10px)}
-  94%{opacity:1;transform:translate(-50%,-50%) scale(.45) rotate(10deg);filter:blur(0)}
-  98%{opacity:1;transform:translate(-50%,-50%) scale(1.25) rotate(-5deg)}
+  0%,82%{opacity:0;transform:translate(-50%,-50%) scale(.05) rotate(-30deg);filter:blur(10px)}
+  88%{opacity:1;transform:translate(-50%,-50%) scale(.45) rotate(10deg);filter:blur(0)}
+  96%{opacity:1;transform:translate(-50%,-50%) scale(1.25) rotate(-5deg)}
   100%{opacity:1;transform:translate(-50%,-50%) scale(1.08);filter:drop-shadow(0 0 30px #ff4ac9)}
 }
-@keyframes hideFloatHearts{0%,53%{opacity:1}58%,100%{opacity:0}}
+@keyframes hideFloatHearts{0%,48%{opacity:1}53%,100%{opacity:0}}
 @media(max-width:480px){
  .love-cinema-burst span:nth-child(1){--bx:-95px;--by:-90px}
  .love-cinema-burst span:nth-child(2){--bx:-60px;--by:-125px}
