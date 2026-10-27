@@ -99,3 +99,31 @@ if('IntersectionObserver'in window&&!window.matchMedia('(prefers-reduced-motion:
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&modal.classList.contains('open'))closeLove()});
  if(voiceButton)voiceButton.addEventListener('click',()=>{if(!('speechSynthesis'in window)){voiceStatus.textContent='Browser ini belum mendukung suara otomatis.';return}window.speechSynthesis.cancel();const voices=window.speechSynthesis.getVoices(),iv=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith('id'))||null,ev=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith('en'))||null;const id=new SpeechSynthesisUtterance(messageID);id.lang='id-ID';id.rate=.9;id.pitch=1.04;if(iv)id.voice=iv;const en=new SpeechSynthesisUtterance(messageEN);en.lang='en-US';en.rate=.9;if(ev)en.voice=ev;voiceStatus.textContent='Sedang membacakan pesan dalam bahasa Indonesia…';id.onend=()=>voiceStatus.textContent='Sekarang versi bahasa Inggris…';en.onend=()=>voiceStatus.textContent='Selesai · Pesan sudah dibacakan dalam dua bahasa.';id.onerror=()=>voiceStatus.textContent='Suara Indonesia tidak tersedia. Periksa pengaturan Text-to-Speech HP.';window.speechSynthesis.speak(id);window.speechSynthesis.speak(en)});
 })();
+
+
+/* === Motion polish: pointer-aware photo depth + staggered entrance === */
+(()=>{'use strict';
+ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const cards=[...document.querySelectorAll('.photo-card')];
+ if(!reduce&&window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+  cards.forEach(card=>{
+   card.addEventListener('pointermove',event=>{
+    const r=card.getBoundingClientRect(),x=(event.clientX-r.left)/r.width,y=(event.clientY-r.top)/r.height;
+    card.style.setProperty('--tilt-y',((x-.5)*8).toFixed(2)+'deg');
+    card.style.setProperty('--tilt-x',((.5-y)*7).toFixed(2)+'deg');
+    card.style.setProperty('--lift','-4px');
+   });
+   card.addEventListener('pointerleave',()=>{
+    card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg');card.style.setProperty('--lift','0px');
+   });
+  });
+ }
+ if(!reduce&&'IntersectionObserver'in window){
+  const targets=[...document.querySelectorAll('.about-side.reveal,.story.reveal,.quote-heading.reveal,.gallery-heading.reveal,.quote-card.reveal,.photo-card.reveal')];
+  targets.forEach((el,i)=>el.style.setProperty('--reveal-delay',Math.min(i%4,3)*75+'ms'));
+  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+   if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}
+  }),{threshold:.12,rootMargin:'0px 0px -28px 0px'});
+  targets.forEach(el=>{el.classList.add('reveal-ready');observer.observe(el)});
+ }
+})();
