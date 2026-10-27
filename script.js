@@ -49,3 +49,53 @@ if('IntersectionObserver'in window&&!window.matchMedia('(prefers-reduced-motion:
  const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:.12,rootMargin:'0px 0px -24px 0px'});
  document.querySelectorAll('.gallery-heading.reveal,.photo-card.reveal,.quote-heading.reveal,.quote-card.reveal').forEach(el=>{el.classList.add('reveal-ready');revealObserver.observe(el);});
 }
+
+
+/* Ismayanti love note interaction */
+(()=>{
+ const modal=document.getElementById('loveModal');
+ const openButton=document.getElementById('openLove');
+ const closeButton=document.getElementById('closeLove');
+ const particleLayer=document.getElementById('loveParticles');
+ if(!modal||!openButton||!closeButton)return;
+ let particleTimer=null;
+ function makeHeart(){
+   if(!particleLayer||!modal.classList.contains('open'))return;
+   const heart=document.createElement('span');
+   heart.className='love-particle';
+   heart.textContent=Math.random()>.2?'♥':'♡';
+   heart.style.left=(8+Math.random()*84)+'%';
+   heart.style.setProperty('--size',(10+Math.random()*17)+'px');
+   heart.style.setProperty('--time',(2.4+Math.random()*1.8)+'s');
+   heart.style.setProperty('--drift',(-32+Math.random()*64)+'px');
+   particleLayer.appendChild(heart);
+   window.setTimeout(()=>heart.remove(),4500);
+ }
+ function openLove(){
+   modal.classList.add('open');
+   modal.setAttribute('aria-hidden','false');
+   document.body.classList.add('love-open');
+   closeButton.focus();
+   for(let i=0;i<8;i++)window.setTimeout(makeHeart,i*110);
+   if(!particleTimer)particleTimer=window.setInterval(makeHeart,480);
+ }
+ function closeLove(){
+   modal.classList.remove('open');
+   modal.setAttribute('aria-hidden','true');
+   document.body.classList.remove('love-open');
+   if(particleTimer){window.clearInterval(particleTimer);particleTimer=null;}
+   if(openButton)openButton.focus();
+ }
+ openButton.addEventListener('click',openLove);
+ closeButton.addEventListener('click',closeLove);
+ modal.querySelectorAll('[data-close-love="true"]').forEach(el=>el.addEventListener('click',closeLove));
+ modal.querySelectorAll('[data-love-photo]').forEach((button,index)=>button.addEventListener('click',()=>{
+   const src=button.getAttribute('data-love-photo');
+   const galleryIndex=photoSources.indexOf(src);
+   closeLove();
+   if(galleryIndex>=0)openPhoto(galleryIndex);
+ }));
+ document.addEventListener('keydown',event=>{
+   if(event.key==='Escape'&&modal.classList.contains('open'))closeLove();
+ });
+})();
