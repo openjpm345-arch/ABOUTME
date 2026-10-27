@@ -13,7 +13,27 @@ function select(i,scroll){active=(i+chapters.length)%chapters.length;render();co
 document.getElementById('prev').addEventListener('click',()=>select(active-1,false));document.getElementById('next').addEventListener('click',()=>select(active+1,false));document.getElementById('openAbout').addEventListener('click',()=>{select(0,false);document.getElementById('about').scrollIntoView({behavior:'smooth',block:'center'})});
 field.addEventListener('pointerdown',e=>{dragging=true;moved=false;startX=e.clientX;startY=e.clientY;field.classList.add('dragging');field.setPointerCapture(e.pointerId)});field.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-startX;if(Math.abs(dx)>12||Math.abs(e.clientY-startY)>12)moved=true;if(Math.abs(dx)>38){select(active+(dx<0?1:-1),false);startX=e.clientX}});function stopDrag(){dragging=false;field.classList.remove('dragging');setTimeout(()=>moved=false,80)}field.addEventListener('pointerup',stopDrag);field.addEventListener('pointercancel',stopDrag);field.addEventListener('lostpointercapture',stopDrag);
 let auto=true,autoTimer;function resetAuto(){clearInterval(autoTimer);autoTimer=setInterval(()=>{if(auto&&!document.hidden)select(active+1,false)},6500)}field.addEventListener('pointerdown',()=>{auto=false;clearInterval(autoTimer)});document.getElementById('next').addEventListener('click',()=>{auto=false;clearInterval(autoTimer)});document.getElementById('prev').addEventListener('click',()=>{auto=false;clearInterval(autoTimer)});
-document.getElementById('speak').addEventListener('click',()=>{const c=chapters[active],status=document.getElementById('status');if(!('speechSynthesis'in window)){status.textContent='Speech is not supported in this browser.';return}window.speechSynthesis.cancel();const voices=window.speechSynthesis.getVoices();function chooseVoice(prefix){return voices.find(v=>v.lang&&v.lang.toLowerCase()===prefix.toLowerCase())||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith(prefix.slice(0,2).toLowerCase()))||null}const english=new SpeechSynthesisUtterance(c.label.replaceAll('_',' ')+'. '+c.title+'. '+c.text);english.lang='en-US';english.rate=.88;english.pitch=1.02;const enVoice=chooseVoice('en-US');if(enVoice)english.voice=enVoice;const indonesian=new SpeechSynthesisUtterance(c.label+'. '+(c.idTitle||c.title)+'. '+(c.idText||c.text));indonesian.lang='id-ID';indonesian.rate=.9;indonesian.pitch=1;const idVoice=chooseVoice('id-ID');if(idVoice)indonesian.voice=idVoice;english.onstart=()=>status.textContent='Speaking English… / Sedang berbicara bahasa Inggris…';english.onend=()=>{status.textContent='Now Indonesian… / Sekarang bahasa Indonesia…'};indonesian.onend=()=>status.textContent='English + Indonesian · ready to replay / Siap diputar ulang';indonesian.onerror=()=>status.textContent='Indonesian voice unavailable on this device / Suara Indonesia tidak tersedia di perangkat ini';english.onerror=()=>status.textContent='English voice unavailable / Suara Inggris tidak tersedia';window.speechSynthesis.speak(english);window.speechSynthesis.speak(indonesian)});render();resetAuto();
+let storyLanguage='id';
+function paintStoryLanguage(){
+ const c=chapters[active],idLabels=['TENTANG AKU','PERJALANANKU','SISI KREATIFKU','CARA PANDANGKU','BAB BERIKUTNYA'];
+ document.getElementById('storyKicker').textContent=storyLanguage==='id'?'BAB 0'+(active+1)+' / '+idLabels[active]:'CHAPTER 0'+(active+1)+' / '+c.label;
+ document.getElementById('storyTitle').textContent=storyLanguage==='id'?c.idTitle:c.title;
+ document.getElementById('storyText').textContent=storyLanguage==='id'?c.idText:c.text;
+ const toggle=document.getElementById('toggleStoryLanguage');
+ toggle.textContent=storyLanguage==='id'?'Tampilkan English':'Tampilkan Bahasa Indonesia';
+ toggle.setAttribute('aria-pressed',String(storyLanguage==='en'));
+}
+document.getElementById('toggleStoryLanguage').addEventListener('click',()=>{storyLanguage=storyLanguage==='id'?'en':'id';paintStoryLanguage()});
+document.getElementById('speak').addEventListener('click',()=>{
+ const c=chapters[active],status=document.getElementById('status');
+ if(!('speechSynthesis'in window)){status.textContent='Browser ini belum mendukung suara otomatis.';return}
+ window.speechSynthesis.cancel();const voices=window.speechSynthesis.getVoices();
+ function chooseVoice(lang){return voices.find(v=>v.lang&&v.lang.toLowerCase()===lang.toLowerCase())||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()))||null}
+ const id=new SpeechSynthesisUtterance((c.idTitle||c.title)+'. '+(c.idText||c.text));id.lang='id-ID';id.rate=.91;id.pitch=1.02;const iv=chooseVoice('id-ID');if(iv)id.voice=iv;
+ const en=new SpeechSynthesisUtterance(c.title+'. '+c.text);en.lang='en-US';en.rate=.88;en.pitch=1;const ev=chooseVoice('en-US');if(ev)en.voice=ev;
+ status.textContent='Memutar bahasa Indonesia…';id.onend=()=>status.textContent='Berikutnya bahasa Inggris…';en.onend=()=>status.textContent='Selesai · Sudah diputar dalam dua bahasa';id.onerror=()=>status.textContent='Suara Indonesia mungkin belum tersedia di perangkat ini.';
+ window.speechSynthesis.speak(id);window.speechSynthesis.speak(en);
+});render();resetAuto();render();resetAuto();
 const intro=document.getElementById('introScreen'),stage=document.getElementById('stage'),skipIntro=document.getElementById('skipIntro'),cinemaPercent=document.getElementById('cinemaPercent');
 let introFinished=false,percentValue=0;
 const percentTimer=window.setInterval(()=>{percentValue=Math.min(100,percentValue+4);if(cinemaPercent)cinemaPercent.textContent=String(percentValue).padStart(2,'0')+'%';if(percentValue>=100)window.clearInterval(percentTimer)},145);
@@ -51,78 +71,20 @@ if('IntersectionObserver'in window&&!window.matchMedia('(prefers-reduced-motion:
 }
 
 
-/* Ismayanti love note interaction */
+
+/* Pengendali tunggal untuk tab Ismayanti, animasi, foto, dan suara */
 (()=>{
- const modal=document.getElementById('loveModal');
- const openButton=document.getElementById('openLove');
- const closeButton=document.getElementById('closeLove');
- const particleLayer=document.getElementById('loveParticles');
+ const modal=document.getElementById('loveModal'),openButton=document.getElementById('openLove'),closeButton=document.getElementById('closeLove'),particleLayer=document.getElementById('loveParticles'),voiceButton=document.getElementById('loveVoice'),voiceStatus=document.getElementById('loveVoiceStatus');
  if(!modal||!openButton||!closeButton)return;
- let particleTimer=null;
- function makeHeart(){
-   if(!particleLayer||!modal.classList.contains('open'))return;
-   const heart=document.createElement('span');
-   heart.className='love-particle';
-   heart.textContent=Math.random()>.2?'♥':'♡';
-   heart.style.left=(8+Math.random()*84)+'%';
-   heart.style.setProperty('--size',(10+Math.random()*17)+'px');
-   heart.style.setProperty('--time',(2.4+Math.random()*1.8)+'s');
-   heart.style.setProperty('--drift',(-32+Math.random()*64)+'px');
-   particleLayer.appendChild(heart);
-   window.setTimeout(()=>heart.remove(),4500);
- }
- function openLove(){
-   modal.classList.add('open');
-   modal.setAttribute('aria-hidden','false');
-   document.body.classList.add('love-open');
-   closeButton.focus();
-   for(let i=0;i<8;i++)window.setTimeout(makeHeart,i*110);
-   if(!particleTimer)particleTimer=window.setInterval(makeHeart,480);
- }
- function closeLove(){
-   modal.classList.remove('open');
-   modal.setAttribute('aria-hidden','true');
-   document.body.classList.remove('love-open');
-   if(particleTimer){window.clearInterval(particleTimer);particleTimer=null;}
-   if(openButton)openButton.focus();
- }
- openButton.addEventListener('click',openLove);
- closeButton.addEventListener('click',closeLove);
+ let particleTimer=null,previousFocus=null;
+ const messageID='Sejak kamu hadir, hari-hariku terasa lebih indah. Kehadiranmu mungkin sederhana, tapi kamu punya cara sendiri untuk membuatku bahagia. Terima kasih sudah menjadi bagian dari ceritaku. Semoga kamu selalu tahu kalau kamu begitu berarti.';
+ const messageEN='Since you came into my life, my days have felt brighter. You have your own way of making me happy. Thank you for being part of my story, and I hope you always know how much you mean.';
+ function makeHeart(){if(!particleLayer||!modal.classList.contains('open'))return;const heart=document.createElement('span');heart.className='love-particle';heart.textContent=Math.random()>.22?'♥':'♡';heart.style.left=(5+Math.random()*90)+'%';heart.style.setProperty('--size',(12+Math.random()*20)+'px');heart.style.setProperty('--time',(2.4+Math.random()*1.6)+'s');heart.style.setProperty('--heart-color',Math.random()>.45?'#ff86ce':'#c0a7ff');particleLayer.appendChild(heart);window.setTimeout(()=>heart.remove(),4300)}
+ function openLove(){previousFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('love-open');openButton.classList.add('selected');openButton.setAttribute('aria-pressed','true');closeButton.focus();for(let i=0;i<12;i++)window.setTimeout(makeHeart,i*80);if(!particleTimer)particleTimer=window.setInterval(makeHeart,420)}
+ function closeLove(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('love-open');openButton.classList.remove('selected');openButton.setAttribute('aria-pressed','false');if(particleTimer){window.clearInterval(particleTimer);particleTimer=null}if(particleLayer)particleLayer.replaceChildren();if(window.speechSynthesis)window.speechSynthesis.cancel();if(voiceStatus)voiceStatus.textContent='Pesan dibacakan dalam bahasa Indonesia, lalu Inggris.';if(previousFocus&&previousFocus.focus)previousFocus.focus();else openButton.focus()}
+ openButton.setAttribute('aria-pressed','false');openButton.addEventListener('click',openLove);closeButton.addEventListener('click',closeLove);
  modal.querySelectorAll('[data-close-love="true"]').forEach(el=>el.addEventListener('click',closeLove));
- modal.querySelectorAll('[data-love-photo]').forEach((button,index)=>button.addEventListener('click',()=>{
-   const src=button.getAttribute('data-love-photo');
-   const galleryIndex=photoSources.indexOf(src);
-   closeLove();
-   if(galleryIndex>=0)openPhoto(galleryIndex);
- }));
- document.addEventListener('keydown',event=>{
-   if(event.key==='Escape'&&modal.classList.contains('open'))closeLove();
- });
-})();
-
-
-/* Ismayanti love note interactions */
-(()=>{
- const modal=document.getElementById('loveModal');
- const open=document.getElementById('openLove');
- const close=document.getElementById('closeLove');
- const particles=document.getElementById('loveParticles');
- if(!modal||!open||!close)return;
- let returnFocus=null,particleTimer=null;
- function burstHearts(){
-  if(!particles)return;
-  particles.replaceChildren();
-  const symbols=['♥','♡','✦','♥','♡','♥'];
-  symbols.forEach((symbol,i)=>{
-   const heart=document.createElement('span');heart.className='love-particle';heart.textContent=symbol;
-   heart.style.setProperty('--left',(8+i*15)+'%');heart.style.setProperty('--size',(13+(i%3)*7)+'px');heart.style.setProperty('--time',(2.1+(i%3)*.45)+'s');heart.style.setProperty('--heart-color',i%2?'#c0a7ff':'#ff86ce');
-   particles.appendChild(heart);heart.addEventListener('animationend',()=>heart.remove(),{once:true});
-  });
- }
- function show(){returnFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('love-open');close.focus();burstHearts();particleTimer=window.setInterval(burstHearts,2400)}
- function hide(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('love-open');window.clearInterval(particleTimer);particles?.replaceChildren();if(returnFocus&&returnFocus.focus)returnFocus.focus()}
- open.addEventListener('click',show);close.addEventListener('click',hide);
- modal.querySelector('[data-close-love="true"]')?.addEventListener('click',hide);
- document.addEventListener('keydown',event=>{if(!modal.classList.contains('open'))return;if(event.key==='Escape')hide()});
- document.querySelectorAll('[data-love-photo]').forEach((button,index)=>button.addEventListener('click',()=>{hide();if(typeof openPhoto==='function')openPhoto(index)}));
+ modal.querySelectorAll('[data-love-photo]').forEach(button=>button.addEventListener('click',()=>{const src=button.getAttribute('data-love-photo'),index=photoSources.indexOf(src);closeLove();if(index>=0)openPhoto(index)}));
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&modal.classList.contains('open'))closeLove()});
+ if(voiceButton)voiceButton.addEventListener('click',()=>{if(!('speechSynthesis'in window)){voiceStatus.textContent='Browser ini belum mendukung suara otomatis.';return}window.speechSynthesis.cancel();const voices=window.speechSynthesis.getVoices(),iv=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith('id'))||null,ev=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith('en'))||null;const id=new SpeechSynthesisUtterance(messageID);id.lang='id-ID';id.rate=.9;id.pitch=1.04;if(iv)id.voice=iv;const en=new SpeechSynthesisUtterance(messageEN);en.lang='en-US';en.rate=.9;if(ev)en.voice=ev;voiceStatus.textContent='Sedang membacakan pesan dalam bahasa Indonesia…';id.onend=()=>voiceStatus.textContent='Sekarang versi bahasa Inggris…';en.onend=()=>voiceStatus.textContent='Selesai · Pesan sudah dibacakan dalam dua bahasa.';id.onerror=()=>voiceStatus.textContent='Suara Indonesia tidak tersedia. Periksa pengaturan Text-to-Speech HP.';window.speechSynthesis.speak(id);window.speechSynthesis.speak(en)});
 })();
