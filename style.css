@@ -253,3 +253,43 @@ body.love-open{overflow:hidden}
 @keyframes cinemaStarsDrift{to{background-position:94px 94px, -51px 102px}}
 @keyframes loveCinemaLoad{to{width:100%}}
 @media(prefers-reduced-motion:reduce){.love-cinema:before,.love-cinema-orbit,.love-cinema-heart,.love-cinema h2,.love-cinema-caption,.love-cinema-progress span{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+
+/* Bigger cinematic love moment */
+.love-cinema-giant-heart{
+  position:absolute;z-index:0;left:50%;top:43%;
+  transform:translate(-50%,-50%) scale(.45);
+  font-size:clamp(16rem,88vw,36rem);line-height:.8;
+  color:#ff62c8;opacity:0;
+  filter:drop-shadow(0 0 18px #ff4ec8) drop-shadow(0 0 52px #d63bff);
+  animation:giantHeartBloom 8s cubic-bezier(.16,.8,.22,1) both;
+  pointer-events:none;
+}
+.love-cinema-heart{z-index:2;filter:drop-shadow(0 0 15px #ff5ac9) drop-shadow(0 0 45px #ff5ac9) drop-shadow(0 0 90px #b16cff);animation:cinemaHeartForm 8s cubic-bezier(.16,.8,.22,1) both,cinemaHeartPulse 1.25s 1.1s ease-in-out infinite}
+.love-cinema-float-hearts{position:absolute;inset:0;z-index:1;pointer-events:none}
+.love-cinema-float-hearts span{position:absolute;left:var(--x,50%);top:110%;font-size:clamp(1.8rem,6vw,3.8rem);color:#ff9cde;text-shadow:0 0 18px #ff48c5,0 0 38px #c55cff;opacity:0;animation:floatLoveHeart var(--dur,6s) var(--delay,0s) ease-in infinite}
+.love-cinema-float-hearts span:nth-child(1){--x:12%;--dur:6.5s;--delay:.2s}
+.love-cinema-float-hearts span:nth-child(2){--x:26%;--dur:5.5s;--delay:1.3s;font-size:2rem}
+.love-cinema-float-hearts span:nth-child(3){--x:72%;--dur:6.8s;--delay:.7s}
+.love-cinema-float-hearts span:nth-child(4){--x:87%;--dur:5.8s;--delay:1.8s}
+.love-cinema-float-hearts span:nth-child(5){--x:42%;--dur:7s;--delay:2.2s;font-size:1.7rem}
+.love-cinema-float-hearts span:nth-child(6){--x:60%;--dur:6s;--delay:2.8s}
+.love-cinema-float-hearts span:nth-child(7){--x:5%;--dur:7.2s;--delay:3.1s}
+@keyframes giantHeartBloom{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.18) rotate(-18deg)}
+  18%{opacity:.2;transform:translate(-50%,-50%) scale(.75) rotate(0)}
+  38%{opacity:.32;transform:translate(-50%,-50%) scale(1.04)}
+  58%{opacity:.19;transform:translate(-50%,-50%) scale(.96)}
+  100%{opacity:.26;transform:translate(-50%,-50%) scale(1.08)}
+}
+@keyframes cinemaHeartPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.13)}}
+@keyframes floatLoveHeart{
+  0%{transform:translateY(0) rotate(-15deg) scale(.65);opacity:0}
+  12%{opacity:.88}
+  78%{opacity:.7}
+  100%{transform:translateY(-125vh) rotate(25deg) scale(1.15);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+ .love-cinema-giant-heart,.love-cinema-float-hearts span,.love-cinema-heart{animation:none}
+ .love-cinema-giant-heart{opacity:.24;transform:translate(-50%,-50%) scale(1)}
+}
