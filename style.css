@@ -550,3 +550,74 @@ body.love-open{overflow:hidden}
  .love-modal.cinema-running .love-cinema .love-cinema-reform,
  .love-modal.cinema-running .love-cinema:after{animation-duration:12s!important;animation-iteration-count:1!important}
 }
+
+
+/* FINAL FIX: use two real phases — charge for 10s, detonate, then form the ID card. */
+.love-modal.cinema-running:not(.cinema-bursting) .love-cinema .love-cinema-giant-heart{
+  animation:heartChargeFinal 10s linear both!important;
+  transform-origin:50% 50%;
+  opacity:1;
+  will-change:transform,opacity,filter;
+}
+.love-modal.cinema-running:not(.cinema-bursting) .love-cinema .love-cinema-heart{
+  animation:heartCoreFinal 10s linear both!important;
+  will-change:transform,opacity,filter;
+}
+.love-modal.cinema-running:not(.cinema-bursting) .love-cinema .love-cinema-burst span{
+  animation:none!important;opacity:0!important;transform:translate(0,0) scale(.1)!important;
+}
+.love-modal.cinema-running.cinema-bursting .love-cinema .love-cinema-giant-heart{
+  animation:heartDetonateFinal .72s ease-out both!important;
+}
+.love-modal.cinema-running.cinema-bursting .love-cinema .love-cinema-heart{
+  animation:heartCoreDetonateFinal .52s ease-out both!important;
+}
+.love-modal.cinema-running.cinema-bursting .love-cinema .love-cinema-burst span{
+  opacity:0!important;
+  animation:particleBurstFinal .95s cubic-bezier(.12,.7,.18,1) both!important;
+}
+.love-modal.cinema-running.cinema-bursting .love-cinema:after{
+  animation:detonationFlashFinal .8s ease-out both!important;
+  z-index:80!important;
+}
+.love-modal.cinema-running.cinema-bursting .love-cinema-burst span:after{
+  content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;
+  background:#fff;box-shadow:0 0 16px 6px #fff,0 0 32px 13px #ff55ce,0 0 54px 20px #a45aff;
+}
+@keyframes heartChargeFinal{
+  0%{opacity:.2;transform:translate(-50%,-50%) scale(.08);filter:brightness(1)}
+  20%{opacity:1;transform:translate(-50%,-50%) scale(.35);filter:brightness(1.2)}
+  45%{opacity:1;transform:translate(-50%,-50%) scale(.7);filter:brightness(1.45)}
+  68%{opacity:1;transform:translate(-50%,-50%) scale(1.12);filter:brightness(1.8)}
+  84%{opacity:1;transform:translate(-50%,-50%) scale(1.7);filter:brightness(2.5)}
+  96%{opacity:1;transform:translate(-50%,-50%) scale(2.15);filter:brightness(3.2) drop-shadow(0 0 35px #ff4fca)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(2.3);filter:brightness(3.8) drop-shadow(0 0 55px #ff4fca)}
+}
+@keyframes heartCoreFinal{
+  0%,68%{opacity:1;transform:scale(1);filter:brightness(1)}
+  88%{opacity:1;transform:scale(1.4);filter:brightness(2)}
+  100%{opacity:1;transform:scale(1.8);filter:brightness(3.5)}
+}
+@keyframes heartDetonateFinal{
+  0%{opacity:1;transform:translate(-50%,-50%) scale(2.3);filter:brightness(4) drop-shadow(0 0 55px #ff4fca)}
+  22%{opacity:1;transform:translate(-50%,-50%) scale(4.6);filter:brightness(5) blur(1px) drop-shadow(0 0 70px #fff)}
+  58%{opacity:.8;transform:translate(-50%,-50%) scale(7.5);filter:brightness(4) blur(5px)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(10);filter:brightness(3) blur(16px)}
+}
+@keyframes heartCoreDetonateFinal{
+  0%{opacity:1;transform:scale(1.8);filter:brightness(4)}
+  35%{opacity:1;transform:scale(3.5);filter:brightness(5) blur(2px)}
+  100%{opacity:0;transform:scale(6);filter:brightness(4) blur(14px)}
+}
+@keyframes particleBurstFinal{
+  0%{opacity:0;transform:translate(0,0) scale(.1)}
+  12%{opacity:1;transform:translate(0,0) scale(1.5)}
+  65%{opacity:1;transform:translate(var(--bx),var(--by)) scale(1.1) rotate(24deg)}
+  100%{opacity:0;transform:translate(calc(var(--bx)*.15),calc(var(--by)*.15)) scale(.05) rotate(70deg)}
+}
+@keyframes detonationFlashFinal{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.02)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1.8)}
+  45%{opacity:1;transform:translate(-50%,-50%) scale(8)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(16)}
+}
