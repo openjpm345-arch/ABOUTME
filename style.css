@@ -221,3 +221,9 @@ body.lightbox-open{overflow:hidden}
 .love-voice-status{text-align:center;min-height:1em;margin:0 auto 18px;color:#bcaecf;font-size:.7rem;line-height:1.6}
 body.love-open{overflow:hidden}
 @media(max-width:480px){.story-actions{width:100%}.story-actions .sound{font-size:.72rem;padding:9px 10px}.love-voice{max-width:100%}}
+
+/* Tata letak galeri untuk keenam foto yang tersedia di repo */
+.photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.photo-card-wide{grid-column:span 1}
+.love-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:620px){.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.photo-card-wide{grid-column:span 2}.love-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
