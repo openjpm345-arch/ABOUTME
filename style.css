@@ -129,3 +129,40 @@ body.lightbox-open{overflow:hidden}
 @keyframes cinemaOrbit{to{transform:rotate(360deg)}}@keyframes starDrift{0%{opacity:0;transform:translate3d(0,12px,0) scale(.5)}50%{opacity:.85}100%{opacity:.25;transform:translate3d(0,-16px,0) scale(1.4)}}@keyframes scanSweep{0%{transform:translateY(-110%);opacity:0}20%{opacity:1}80%{opacity:.7}100%{transform:translateY(110%);opacity:0}}@keyframes ringBloom{0%{opacity:0;transform:translate(-50%,-50%) rotateX(68deg) scale(.4)}60%{opacity:.8}100%{opacity:.28;transform:translate(-50%,-50%) rotateX(68deg) scale(1.15)}}@keyframes cinemaAssemble{0%{opacity:0;transform:translateY(34px) scale(.94);filter:blur(10px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}@keyframes cinemaLogo{0%{opacity:0;transform:rotate(-25deg) scale(.3)}100%{opacity:1;transform:rotate(-8deg) scale(1)}}@keyframes titleAssemble{0%{opacity:0;transform:translateY(22px) scale(.9);filter:blur(12px);letter-spacing:.04em}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);letter-spacing:-.085em}}@keyframes letterReveal{from{opacity:0;transform:translateY(12px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}@keyframes edgeFade{from{opacity:0}to{opacity:1}}@keyframes cinemaLoad{0%{transform:translateX(-140%)}100%{transform:translateX(300%)}}
 @media(max-width:600px){.cinema-topline,.cinema-bottomline{font-size:.48rem;letter-spacing:.09em}.cinema-content{padding:18px 12px}.cinema-overline{letter-spacing:.15em;font-size:.55rem}.cinema-pretitle{letter-spacing:.17em}.cinema-skip{bottom:clamp(56px,9vh,76px);font-size:.55rem;padding:9px 11px}.cinema-ring{width:88vw}.cinema-ring-two{width:68vw}}
 @media(prefers-reduced-motion:reduce){.cinema-stars i,.cinema-scan,.cinema-ring,.cinema-content,.cinema-overline,.intro-logo,.cinema-pretitle,.intro-title,.cinema-subtitle,.cinema-translation,.cinema-loading,.cinema-topline,.cinema-bottomline,.intro-progress{animation:none!important;opacity:1;transform:none;filter:none}.intro-screen{transition:none!important}}
+
+
+/* Ismayanti: compact heart tab and animated love-note overlay */
+.ismayanti-love{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:850}
+.love-tab{display:flex;align-items:center;gap:9px;position:relative;border:1px solid #ff9bcf75;border-radius:999px;padding:10px 15px;background:linear-gradient(120deg,#25112bdf,#10152beF);color:#ffeaf6;font-weight:750;font-size:.8rem;letter-spacing:.04em;box-shadow:0 8px 32px #0007,0 0 24px #ff63bd20;backdrop-filter:blur(14px);cursor:pointer;animation:loveTabFloat 3s ease-in-out infinite;transition:transform .25s,border-color .25s,box-shadow .25s}
+.love-tab:hover{transform:translateY(-3px);border-color:#ff9bd8;box-shadow:0 10px 36px #ff63bd35}
+.love-tab-heart{font-size:1.25rem;color:#ff7dbd;text-shadow:0 0 14px #ff4ea9a6;animation:loveBeat 1.25s ease-in-out infinite}
+.love-tab-spark{color:#d4b7ff;font-size:.75rem}
+.love-modal{position:fixed;inset:0;z-index:1500;display:grid;place-items:center;padding:18px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
+.love-modal.open{opacity:1;visibility:visible;pointer-events:auto}
+.love-backdrop{position:absolute;inset:0;background:#03040cce;backdrop-filter:blur(12px)}
+.love-card{position:relative;isolation:isolate;overflow:hidden;width:min(540px,100%);max-height:min(90dvh,850px);overflow-y:auto;border:1px solid #ff9bd84c;border-radius:28px;padding:clamp(22px,5vw,36px);background:radial-gradient(ellipse at 50% 0%,#4a1c46 0%,#17152d 42%,#0b0e1d 100%);box-shadow:0 30px 110px #000b,0 0 70px #ff67c41c;transform:translateY(20px) scale(.96);transition:transform .45s cubic-bezier(.16,1,.3,1);scrollbar-width:thin;scrollbar-color:#ff8acb55 transparent}
+.love-modal.open .love-card{transform:translateY(0) scale(1)}
+.love-glow{position:absolute;z-index:-1;width:260px;height:260px;left:50%;top:-150px;transform:translateX(-50%);border-radius:50%;background:#ff4fb329;filter:blur(22px);pointer-events:none}
+.love-close{position:absolute;right:14px;top:12px;width:36px;height:36px;border-radius:50%;border:1px solid #ffffff26;background:#ffffff0b;color:#fff;font-size:1.5rem;cursor:pointer;z-index:4}
+.love-heart-scene{position:relative;height:100px;display:grid;place-items:center;margin:2px 0 10px}
+.love-heart.big{font-size:4.6rem;line-height:1;color:#ff6fb8;text-shadow:0 0 12px #ff4fa8,0 0 40px #ff4fa866;animation:loveBeat 1.15s ease-in-out infinite;filter:drop-shadow(0 10px 18px #ff3c9c30)}
+.love-heart.small{position:absolute;color:#ffb0d8;text-shadow:0 0 12px #ff4fa8;font-size:1rem;animation:heartFloat 2.6s ease-in-out infinite}
+.love-heart.one{left:calc(50% - 62px);top:15px;animation-delay:.2s}.love-heart.two{left:calc(50% + 48px);top:30px;animation-delay:.7s}.love-heart.three{left:calc(50% + 28px);top:0;animation-delay:1.1s}
+.love-kicker{display:block;text-align:center;color:#d3a9d3;font-size:.59rem;letter-spacing:.2em}
+.love-card h2{text-align:center;margin:9px 0 14px;font-size:clamp(2rem,7vw,3rem);letter-spacing:-.07em;background:linear-gradient(100deg,#fff0f8,#ff8bc9,#c6b3ff);color:transparent;background-clip:text;-webkit-background-clip:text}
+.love-card h2 span{color:#ff8acb;-webkit-text-fill-color:#ff8acb}
+.love-message{max-width:420px;margin:0 auto 22px;text-align:center;color:#e4dff4;font-size:.94rem;line-height:1.9}
+.love-message span{color:#ff80c4;white-space:nowrap}
+.love-photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:20px 0}
+.love-photo{position:relative;aspect-ratio:4/5;min-width:0;padding:0;overflow:hidden;border:1px solid #ff9bd84a;border-radius:14px;background:#171329;cursor:zoom-in;box-shadow:0 8px 24px #0004;transition:transform .3s,border-color .3s,box-shadow .3s}
+.love-photo:hover{transform:translateY(-4px) rotate(-1deg);border-color:#ff91cf;box-shadow:0 12px 30px #ff63bd22}
+.love-photo img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .55s}.love-photo:hover img{transform:scale(1.07)}
+.love-signoff{text-align:center;color:#9c9bbc;font-size:.57rem;letter-spacing:.17em;padding-top:4px}.love-signoff span{color:#ff80c4;font-size:.8rem;margin-left:5px}
+.love-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.love-particle{position:absolute;bottom:-24px;color:#ff80c4;font-size:var(--size,16px);opacity:0;animation:loveRise var(--time,3s) ease-out forwards;text-shadow:0 0 12px #ff5aaa}
+@keyframes loveBeat{0%,100%{transform:scale(1)}15%{transform:scale(1.13)}30%{transform:scale(1)}45%{transform:scale(1.08)}60%{transform:scale(1)}}
+@keyframes heartFloat{0%,100%{opacity:.35;transform:translateY(6px) scale(.8)}50%{opacity:1;transform:translateY(-9px) scale(1.15)}}
+@keyframes loveTabFloat{0%,100%{translate:0 0}50%{translate:0 -4px}}
+@keyframes loveRise{0%{opacity:0;transform:translate3d(0,0,0) rotate(-15deg) scale(.5)}15%{opacity:.9}100%{opacity:0;transform:translate3d(var(--drift,12px),-330px,0) rotate(25deg) scale(1.25)}}
+@media(max-width:600px){.ismayanti-love{right:10px;bottom:calc(12px + env(safe-area-inset-bottom))}.love-tab{padding:9px 12px;font-size:.75rem}.love-card{border-radius:22px;padding:22px 17px}.love-heart-scene{height:86px}.love-photo-grid{gap:6px}.love-photo{border-radius:10px}.love-message{font-size:.88rem;line-height:1.8}}
+@media(prefers-reduced-motion:reduce){.love-tab,.love-tab-heart,.love-heart,.love-particle{animation:none!important}.love-modal,.love-card,.love-photo,.love-photo img{transition:none!important}}
