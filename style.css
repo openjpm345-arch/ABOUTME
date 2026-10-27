@@ -789,3 +789,50 @@ body:before{opacity:.15;background-size:64px 64px;mask-image:linear-gradient(to 
  .ambient-orb{display:none}
  .reveal-ready{opacity:1;transform:none;filter:none}
 }
+
+
+/* PERSONAL STORY + WORK-ETHIC CAROUSEL + PHOTOGRAPHIC ATMOSPHERE */
+body{background:#080a08!important}
+body:after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(7,9,7,.76),rgba(7,9,7,.92)),url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=2200&q=85") center/cover no-repeat;opacity:.46}
+.hero{position:relative}
+.hero:after{content:"";position:absolute;left:50%;bottom:-22px;width:min(72vw,680px);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,#d7ff6390,transparent);box-shadow:0 0 20px #d7ff6322}
+.stage{position:relative}
+.stage:before{content:"WORDS FOR THE LONG GAME";position:absolute;top:5px;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.3em;color:#aab39b;white-space:nowrap;opacity:.72}
+.book{border-radius:12px!important;background:linear-gradient(150deg,#20251aef,#10130ff7 68%,#1d2412)!important;border:1px solid #d7ff6340!important}
+.book strong{font-size:clamp(1.05rem,2.1vw,1.42rem);line-height:1.05;max-width:100%;text-wrap:balance}
+.book small{font-size:.74rem;line-height:1.5;color:#d3d8c5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.book .symbol{font-size:2rem!important}
+.book .number{font-size:.58rem!important}
+.quote-card-line{position:absolute;left:22px;right:22px;bottom:16px;height:2px;background:linear-gradient(90deg,var(--acid),transparent);opacity:.85;box-shadow:0 0 18px #d7ff6340}
+.book.active{background:linear-gradient(150deg,#2a3320f7,#11150dfc 65%,#202b11)!important;box-shadow:0 30px 100px #000b,0 0 40px #d7ff6317,inset 1px 1px 0 #ffffff26!important}
+.about-side{background:linear-gradient(145deg,#1b2015ed,#0d100cf2)!important}
+.about-side p,.story p{font-size:.96rem;line-height:1.9}
+.ismayanti-love{position:relative;isolation:isolate;overflow:hidden;border-top:1px solid #d7ff6320;border-bottom:1px solid #d7ff6315;margin:10px 0 45px;padding:66px 18px 76px;text-align:center;background:linear-gradient(115deg,#10130de8,#1b2014e8,#0b0d0be8)}
+.ismayanti-love:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.3;background:radial-gradient(circle at 50% 50%,#d7ff6333,transparent 35%),repeating-linear-gradient(120deg,transparent 0 38px,#d7ff6308 39px 40px);animation:ismayantiAtmosphere 14s linear infinite}
+.ismayanti-love:after{content:"I S M A Y A N T I  /  A PERSONAL MEMORY";display:block;margin-top:18px;color:#9fa68e;font-size:.62rem;letter-spacing:.25em}
+.love-tab{position:relative;min-width:220px;padding:17px 28px!important;font-size:1rem!important;letter-spacing:.14em;background:linear-gradient(110deg,#d7ff6318,#d7ff6304)!important;box-shadow:0 0 0 1px #d7ff6310,inset 0 0 24px #d7ff6309!important;overflow:hidden}
+.love-tab:before{content:"";position:absolute;inset:0;transform:translateX(-110%);background:linear-gradient(100deg,transparent,#d7ff6328,transparent);animation:ismayantiSweep 5s ease-in-out infinite}
+.love-tab-heart{display:inline-block;animation:heartFloat 2.8s ease-in-out infinite}
+.love-tab-spark{display:inline-block;animation:sparkSpin 8s linear infinite}
+.love-card{position:relative;overflow:hidden}
+.love-card:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(120deg,transparent 15%,#d7ff6308 50%,transparent 80%);background-size:220% 100%;animation:loveCardSweep 9s ease-in-out infinite}
+.love-heart.big{filter:drop-shadow(0 0 22px #ff6bd466)}
+.love-photo{overflow:hidden;transform:translateZ(0);transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .4s,box-shadow .4s}
+.love-photo img{transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s}
+.love-photo:hover{transform:translateY(-5px) rotate(-1deg);border-color:#d7ff6370!important;box-shadow:0 16px 35px #0007,0 0 22px #d7ff6310}
+.love-photo:hover img{transform:scale(1.08);filter:saturate(1.15) contrast(1.06)}
+@keyframes ismayantiAtmosphere{to{background-position:160px 0,0 0}}
+@keyframes ismayantiSweep{0%,65%{transform:translateX(-110%)}100%{transform:translateX(110%)}}
+@keyframes heartFloat{50%{transform:translateY(-4px) scale(1.08)}}
+@keyframes sparkSpin{to{transform:rotate(360deg)}}
+@keyframes loveCardSweep{0%,75%{background-position:120% 0}100%{background-position:-120% 0}}
+@media(max-width:650px){
+ .stage:before{font-size:.5rem;letter-spacing:.17em;top:0}
+ .book{padding:14px!important}
+ .book small{-webkit-line-clamp:3;font-size:.68rem}
+ .quote-card-line{left:14px;right:14px;bottom:11px}
+ .ismayanti-love{padding:48px 12px 55px}
+}
+@media(prefers-reduced-motion:reduce){
+ .ismayanti-love:before,.love-tab:before,.love-card:after{animation:none!important}
+}
