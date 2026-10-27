@@ -637,3 +637,25 @@ body.love-open{overflow:hidden}
 .love-modal.cinema-card-forming .love-cinema-burst span{animation:particleBurstFinal 1.45s cubic-bezier(.12,.7,.18,1) both!important;}
 .love-modal.cinema-card-forming .love-cinema:after{animation:detonationFlashFinal .75s ease-out both!important;}
 .love-modal.cinema-card-forming .love-card:before{content:"";position:absolute;inset:-3px;border-radius:inherit;pointer-events:none;z-index:5;background:linear-gradient(115deg,transparent 20%,#fff 48%,#ff6bd4 53%,transparent 72%);background-size:220% 100%;mix-blend-mode:screen;animation:idCardLightSweep 1.2s ease-out both;}
+
+
+/* VISUAL REFRESH: solid editorial surfaces instead of gradient backgrounds. */
+body{
+  background:var(--bg)!important;
+}
+.love-card{
+  background:#11141d!important;
+  border:1px solid #343946!important;
+  box-shadow:0 28px 80px #0009,0 0 0 1px #ffffff05!important;
+}
+.love-cinema{
+  background:#080a10!important;
+}
+.love-cinema-stars{
+  opacity:.65;
+}
+.love-modal.cinema-card-forming .love-card{
+  background:#11141d!important;
+  border-color:#5a5366!important;
+  box-shadow:0 28px 80px #000b,0 0 45px #f4e9ff18!important;
+}
