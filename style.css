@@ -202,3 +202,22 @@ body.lightbox-open{overflow:hidden}
 @keyframes loveRise{0%{transform:translateY(15px) scale(.6) rotate(-12deg);opacity:0}15%{opacity:.9}100%{transform:translateY(-270px) scale(1.25) rotate(20deg);opacity:0}}
 @media(max-width:480px){.love-modal{padding:10px}.love-card{padding:24px 17px;border-radius:22px;max-height:92svh}.love-message{font-size:.88rem;line-height:1.8}.love-photo-grid{gap:7px}.love-photo{border-radius:10px}.love-signoff{font-size:.52rem;letter-spacing:.11em}}
 @media(prefers-reduced-motion:reduce){.love-tab-heart,.love-heart,.love-heart.small,.love-particle{animation:none!important}.love-modal,.love-card,.love-photo,.love-photo img{transition:none!important}}
+
+/* Polesan tambahan: tombol aktif berwarna, bahasa, dan audio */
+.story-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sound,.love-voice{transition:transform .2s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease}
+.sound:active,.love-voice:active{transform:scale(.96)}
+.sound.language-toggle{border-color:#a58bff75;background:linear-gradient(110deg,#a58bff20,#74f0ff12);color:#e5dcff}
+.story-foot{align-items:flex-start}
+.love-tab{isolation:isolate;overflow:hidden}
+.love-tab:before{content:"";position:absolute;inset:-2px;z-index:-1;border-radius:inherit;background:linear-gradient(110deg,#ff4fae,#a56dff,#63eaff,#ff4fae);background-size:260% 100%;opacity:0;transition:opacity .25s;animation:loveColorFlow 4s linear infinite}
+.love-tab:active{transform:scale(.94)}
+.love-tab.selected,.love-tab[aria-pressed="true"]{border-color:#ffb4e1;background:linear-gradient(110deg,#6a1d60,#332064 55%,#123c54);box-shadow:0 0 0 2px #ff8bd72b,0 0 28px #ff5bc56b,0 0 55px #8f6aff35;color:#fff}
+.love-tab.selected:before,.love-tab[aria-pressed="true"]:before{opacity:.32}
+.love-tab.selected .love-tab-heart,.love-tab[aria-pressed="true"] .love-tab-heart{color:#fff;text-shadow:0 0 10px #ff6dc9,0 0 26px #ff6dc9;animation:loveBeat .65s ease-in-out infinite}
+@keyframes loveColorFlow{to{background-position:260% 0}}
+.love-voice{display:block;margin:0 auto 9px;padding:11px 18px;border:1px solid #ff9edb90;border-radius:999px;background:linear-gradient(100deg,#ff77c51f,#a58bff27,#74f0ff18);color:#fff0fa;font-weight:750;font-size:.82rem;cursor:pointer;box-shadow:0 0 22px #ff6bc51c}
+.love-voice:hover{transform:translateY(-2px);border-color:#ffb8e4;box-shadow:0 0 28px #ff6bc545}
+.love-voice-status{text-align:center;min-height:1em;margin:0 auto 18px;color:#bcaecf;font-size:.7rem;line-height:1.6}
+body.love-open{overflow:hidden}
+@media(max-width:480px){.story-actions{width:100%}.story-actions .sound{font-size:.72rem;padding:9px 10px}.love-voice{max-width:100%}}
