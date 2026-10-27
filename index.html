@@ -8,7 +8,9 @@
 <title>Beyond the Surface — Personal Experience</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="is-entering">\n<div class="intro-screen" id="introScreen" role="status" aria-label="Loading interactive profile"><div class="intro-content"><div class="intro-logo">✦</div><div class="intro-title"><span class="gradient">BEYOND / ME</span></div><div class="intro-sub">An interactive story is unfolding</div><div class="intro-track"><div class="intro-progress"></div></div></div></div>
+<body class="is-entering">
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="intro-screen" id="introScreen" role="status" aria-label="Loading interactive profile"><div class="intro-content"><div class="intro-logo">✦</div><div class="intro-title"><span class="gradient">BEYOND / ME</span></div><div class="intro-sub">An interactive story is unfolding</div><div class="intro-track"><div class="intro-progress"></div></div></div></div>
 <div class="wrap">
 <header class="nav reveal"><div class="brand"><span class="brandmark">✦</span><span>BEYOND / ME</span></div><span class="navtag">INTERACTIVE PROFILE · 3D</span></header>
 <main>
@@ -20,6 +22,19 @@
 <article class="story reveal" id="story" aria-live="polite"><span class="kicker" id="storyKicker">CHAPTER 01 / ABOUT ME</span><h3 id="storyTitle">Curious by nature.</h3><p id="storyText">I'm someone who likes to explore new ideas, learn new skills, and create things that people can interact with. I may still be learning, but I keep moving forward.</p><div class="story-foot"><button class="sound" id="speak">▶ Listen in English</button><span class="status" id="status">English voice · if available on your device</span></div></article>
 </section>
 </main>
+
+<section class="gallery-section" id="gallery" aria-labelledby="galleryTitle">
+  <div class="gallery-heading reveal"><span class="kicker">VISUAL ARCHIVE · 01—03</span><h2 id="galleryTitle">Frames of <span class="gradient">my world.</span></h2><p>A few moments, collected in one place.</p></div>
+  <div class="photo-grid">
+    <button class="photo-card photo-card-wide reveal" type="button" data-photo="3e79658ea527ec2b9745a25b40ec5fcd.jpg" aria-label="Open photo 1"><img src="3e79658ea527ec2b9745a25b40ec5fcd.jpg" alt="Personal gallery photo 1" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-index">01 <i>/ FRAME</i></span><span class="photo-open">↗</span></button>
+    <button class="photo-card reveal" type="button" data-photo="44ac8b303042c120f5c35463028591a2.jpg" aria-label="Open photo 2"><img src="44ac8b303042c120f5c35463028591a2.jpg" alt="Personal gallery photo 2" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-index">02 <i>/ FRAME</i></span><span class="photo-open">↗</span></button>
+    <button class="photo-card reveal" type="button" data-photo="e5ce7590f1d0464062dd8cef7717f173.jpg" aria-label="Open photo 3"><img src="e5ce7590f1d0464062dd8cef7717f173.jpg" alt="Personal gallery photo 3" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-index">03 <i>/ FRAME</i></span><span class="photo-open">↗</span></button>
+  </div>
+  <p class="gallery-note"><span class="gallery-pulse"></span> ORIGINAL JPG · TAP ANY FRAME TO EXPAND</p>
+</section>
+<div class="lightbox" id="photoLightbox" role="dialog" aria-modal="true" aria-label="Expanded photo" aria-hidden="true">
+  <button class="lightbox-close" id="closeLightbox" type="button" aria-label="Close photo">×</button><button class="lightbox-nav lightbox-prev" id="photoPrev" type="button" aria-label="Previous photo">←</button><img id="lightboxImage" src="" alt="Expanded gallery photo"><button class="lightbox-nav lightbox-next" id="photoNext" type="button" aria-label="Next photo">→</button><span class="lightbox-count" id="lightboxCount">01 / 03</span>
+</div>
 <footer class="footer"><span>BEYOND / ME — PERSONAL EXPERIENCE</span><span>Built with curiosity, not perfection.</span></footer>
 </div>
 <script src="script.js" defer></script>
