@@ -310,15 +310,15 @@ body.love-open{overflow:hidden}
 .love-cinema-burst span:nth-child(10){--bx:-165px;--by:45px}
 .love-cinema-burst span:nth-child(11){--bx:-155px;--by:-20px}
 .love-cinema-burst span:nth-child(12){--bx:65px;--by:95px}
-.love-cinema:has(.love-cinema-progress span){--finale-start:4.9s}
+.love-modal.cinema-running .love-cinema:has(.love-cinema-progress span){--finale-start:4.9s}
 .love-cinema .love-cinema-progress span{animation:loveCinemaLoad 10s linear both}
-.love-cinema:has(.love-cinema-progress span){ }
-.love-cinema:has(.love-cinema-progress span) .love-cinema-heart{animation:cinemaHeartForm 10s cubic-bezier(.16,.8,.22,1) both,heartChargeAndBurst 10s ease-in-out both}
-.love-cinema:has(.love-cinema-progress span) .love-cinema-giant-heart{animation:giantHeartBloom 10s cubic-bezier(.16,.8,.22,1) both,giantHeartBurst 10s ease-in-out both}
-.love-cinema:has(.love-cinema-progress span) .love-cinema-burst{animation:burstStage 10s linear both}
-.love-cinema:has(.love-cinema-progress span) .love-cinema-burst span{animation:burstHeartPiece 10s cubic-bezier(.15,.7,.25,1) both}
-.love-cinema:has(.love-cinema-progress span) .love-cinema-reform{animation:reformBigHeart 10s cubic-bezier(.15,.8,.2,1) both}
-.love-cinema:has(.love-cinema-progress span) .love-cinema-float-hearts{animation:hideFloatHearts 10s linear both}
+.love-modal.cinema-running .love-cinema:has(.love-cinema-progress span){ }
+.love-modal.cinema-running .love-cinema:has(.love-cinema-progress span) .love-cinema-heart{animation:cinemaHeartForm 10s cubic-bezier(.16,.8,.22,1) both,heartChargeAndBurst 10s ease-in-out both}
+.love-modal.cinema-running .love-cinema:has(.love-cinema-progress span) .love-cinema-giant-heart{animation:giantHeartBloom 10s cubic-bezier(.16,.8,.22,1) both,giantHeartBurst 10s ease-in-out both}
+.love-modal.cinema-running .love-cinema:has(.love-cinema-progress span) .love-cinema-burst{animation:burstStage 10s linear both}
+.love-modal.cinema-running .love-cinema:has(.love-cinema-progress span) .love-cinema-burst span{animation:burstHeartPiece 10s cubic-bezier(.15,.7,.25,1) both}
+.love-modal.cinema-running .love-cinema:has(.love-cinema-progress span) .love-cinema-reform{animation:reformBigHeart 10s cubic-bezier(.15,.8,.2,1) both}
+.love-modal.cinema-running .love-cinema:has(.love-cinema-progress span) .love-cinema-float-hearts{animation:hideFloatHearts 10s linear both}
 @keyframes heartChargeAndBurst{
   0%,67%{opacity:1;transform:scale(1)}
   70%{opacity:1;transform:scale(1.5)}
@@ -433,4 +433,26 @@ body.love-open{overflow:hidden}
   .stage.entered .book.active {
     animation: none !important;
   }
+}
+
+
+/* Fix: timeline animations must begin when Ismayanti is clicked, not on page load. */
+.love-modal.cinema-running .love-cinema:after{
+  content:"";position:absolute;z-index:5;left:50%;top:43%;width:min(20vmin,150px);aspect-ratio:1;border-radius:50%;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,#fff 0 3%,#fff8fb 8%,#ffb5e8 17%,#ff5bc9 28%,#b34dff 43%,transparent 72%);
+  box-shadow:0 0 45px 20px #ff66d455,0 0 100px 45px #a45aff35;
+  animation:loveDetonationFlash 10s ease-out both;
+}
+@keyframes loveDetonationFlash{
+  0%,66%{opacity:0;transform:translate(-50%,-50%) scale(.05)}
+  69%{opacity:1;transform:translate(-50%,-50%) scale(.8)}
+  72%{opacity:.95;transform:translate(-50%,-50%) scale(7)}
+  77%{opacity:.3;transform:translate(-50%,-50%) scale(12)}
+  83%,100%{opacity:0;transform:translate(-50%,-50%) scale(15)}
+}
+.love-modal.cinema-running .love-cinema .love-cinema-burst span{
+  will-change:transform,opacity;filter:drop-shadow(0 0 12px #ff65d4);
+}
+.love-modal.cinema-running .love-cinema .love-cinema-reform{
+  will-change:transform,opacity,filter;
 }
