@@ -369,3 +369,68 @@ body.love-open{overflow:hidden}
  .love-cinema-burst,.love-cinema-burst span,.love-cinema-reform{animation:none!important}
  .love-cinema-reform{opacity:1;transform:translate(-50%,-50%) scale(1)}
 }
+
+
+/* Animation polish: stronger depth, glow, and smoother motion */
+.intro-screen:before,
+.intro-screen:after {
+  filter: drop-shadow(0 0 18px #74f0ff22);
+  will-change: transform;
+}
+.cinema-scan {
+  opacity: .75;
+  mix-blend-mode: screen;
+}
+.cinema-ring {
+  box-shadow: 0 0 34px #a58bff24, inset 0 0 30px #74f0ff12;
+  will-change: transform, opacity;
+}
+.cinema-stars i {
+  animation: introStarTwinkle 2.8s ease-in-out infinite alternate;
+}
+.cinema-stars i:nth-child(3n) { animation-delay: -.9s; }
+.cinema-stars i:nth-child(3n + 1) { animation-delay: -1.7s; }
+.cinema-content {
+  filter: drop-shadow(0 10px 36px #080a1680);
+}
+.intro-logo {
+  box-shadow: 0 0 24px #74f0ff45, 0 0 70px #a58bff25;
+}
+.intro-title .gradient {
+  background-size: 220% 100%;
+  animation: introGradientFlow 5s ease-in-out infinite alternate;
+}
+.stage.entered .book.active {
+  animation: bookArrive .75s cubic-bezier(.2,.8,.2,1) both, activeBookGlow 3s ease-in-out 1s infinite;
+}
+.love-cinema .love-cinema-giant-heart {
+  filter: drop-shadow(0 0 30px #ff4ac980);
+}
+.love-cinema-burst span {
+  text-shadow: 0 0 14px #ff4ac9, 0 0 32px #b16cffb0;
+}
+.love-cinema-reform {
+  text-shadow: 0 0 25px #ff4ac9, 0 0 65px #b16cff;
+}
+.love-tab {
+  box-shadow: 0 0 0 1px #ff86d733, 0 12px 45px #ff4ac925;
+}
+@keyframes introStarTwinkle {
+  from { opacity: .25; transform: scale(.7); }
+  to { opacity: 1; transform: scale(1.35); }
+}
+@keyframes introGradientFlow {
+  from { background-position: 0% 50%; filter: brightness(1); }
+  to { background-position: 100% 50%; filter: brightness(1.2); }
+}
+@keyframes activeBookGlow {
+  0%, 100% { box-shadow: 0 25px 90px #54dfff25, 0 0 0 1px #7beeff20, inset 1px 1px 0 #ffffff35; }
+  50% { box-shadow: 0 25px 95px #54dfff42, 0 0 28px #7beeff28, inset 1px 1px 0 #ffffff45; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinema-stars i,
+  .intro-title .gradient,
+  .stage.entered .book.active {
+    animation: none !important;
+  }
+}
