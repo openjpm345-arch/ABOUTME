@@ -629,3 +629,11 @@ body.love-open{overflow:hidden}
 .love-modal.cinema-card-forming .love-cinema-burst span{animation:particleBurstFinal .95s cubic-bezier(.12,.7,.18,1) both!important;}
 .love-modal.cinema-card-forming .love-card:before{content:"";position:absolute;inset:-3px;border-radius:inherit;pointer-events:none;z-index:5;background:linear-gradient(115deg,transparent 20%,#fff9 48%,#ff6bd477 53%,transparent 72%);background-size:220% 100%;mix-blend-mode:screen;animation:idCardLightSweep .9s ease-out both;}
 @keyframes idCardLightSweep{0%{opacity:0;background-position:100% 0;filter:blur(8px)}35%{opacity:1}100%{opacity:0;background-position:0 0;filter:blur(0)}}
+
+/* FINAL TRANSITION: keep the particles visible while the actual ID card forms beneath them. */
+.love-modal.cinema-card-forming .love-cinema{opacity:.16!important;visibility:visible!important;z-index:20!important;transition:opacity .9s ease!important;}
+.love-modal.cinema-card-forming .love-card{position:relative;z-index:30!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;animation:loveCardAssemble 1.35s cubic-bezier(.16,1,.3,1) both!important;}
+.love-modal.cinema-card-forming .love-cinema-burst{z-index:25!important;}
+.love-modal.cinema-card-forming .love-cinema-burst span{animation:particleBurstFinal 1.45s cubic-bezier(.12,.7,.18,1) both!important;}
+.love-modal.cinema-card-forming .love-cinema:after{animation:detonationFlashFinal .75s ease-out both!important;}
+.love-modal.cinema-card-forming .love-card:before{content:"";position:absolute;inset:-3px;border-radius:inherit;pointer-events:none;z-index:5;background:linear-gradient(115deg,transparent 20%,#fff 48%,#ff6bd4 53%,transparent 72%);background-size:220% 100%;mix-blend-mode:screen;animation:idCardLightSweep 1.2s ease-out both;}
