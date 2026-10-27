@@ -99,3 +99,30 @@ if('IntersectionObserver'in window&&!window.matchMedia('(prefers-reduced-motion:
    if(event.key==='Escape'&&modal.classList.contains('open'))closeLove();
  });
 })();
+
+
+/* Ismayanti love note interactions */
+(()=>{
+ const modal=document.getElementById('loveModal');
+ const open=document.getElementById('openLove');
+ const close=document.getElementById('closeLove');
+ const particles=document.getElementById('loveParticles');
+ if(!modal||!open||!close)return;
+ let returnFocus=null,particleTimer=null;
+ function burstHearts(){
+  if(!particles)return;
+  particles.replaceChildren();
+  const symbols=['♥','♡','✦','♥','♡','♥'];
+  symbols.forEach((symbol,i)=>{
+   const heart=document.createElement('span');heart.className='love-particle';heart.textContent=symbol;
+   heart.style.setProperty('--left',(8+i*15)+'%');heart.style.setProperty('--size',(13+(i%3)*7)+'px');heart.style.setProperty('--time',(2.1+(i%3)*.45)+'s');heart.style.setProperty('--heart-color',i%2?'#c0a7ff':'#ff86ce');
+   particles.appendChild(heart);heart.addEventListener('animationend',()=>heart.remove(),{once:true});
+  });
+ }
+ function show(){returnFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('love-open');close.focus();burstHearts();particleTimer=window.setInterval(burstHearts,2400)}
+ function hide(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('love-open');window.clearInterval(particleTimer);particles?.replaceChildren();if(returnFocus&&returnFocus.focus)returnFocus.focus()}
+ open.addEventListener('click',show);close.addEventListener('click',hide);
+ modal.querySelector('[data-close-love="true"]')?.addEventListener('click',hide);
+ document.addEventListener('keydown',event=>{if(!modal.classList.contains('open'))return;if(event.key==='Escape')hide()});
+ document.querySelectorAll('[data-love-photo]').forEach((button,index)=>button.addEventListener('click',()=>{hide();if(typeof openPhoto==='function')openPhoto(index)}));
+})();
