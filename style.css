@@ -456,3 +456,17 @@ body.love-open{overflow:hidden}
 .love-modal.cinema-running .love-cinema .love-cinema-reform{
   will-change:transform,opacity,filter;
 }
+
+
+/* The scattered light resolves into the ID card at the end of the cinema. */
+.love-modal.card-assembling .love-card{
+  animation:loveCardAssemble 1.05s cubic-bezier(.16,1,.3,1) both;
+  transform-origin:50% 50%;
+}
+@keyframes loveCardAssemble{
+  0%{opacity:0;transform:translateY(16px) scale(.72);filter:blur(14px);box-shadow:0 0 0 #ff65d400}
+  38%{opacity:.65;transform:translateY(3px) scale(.94);filter:blur(4px);box-shadow:0 0 65px 25px #ff65d477}
+  72%{opacity:1;transform:translateY(0) scale(1.025);filter:blur(0);box-shadow:0 0 80px 12px #ff65d444}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);box-shadow:0 30px 100px #0009,0 0 65px #f86ac21c}
+}
+@media(prefers-reduced-motion:reduce){.love-modal.card-assembling .love-card{animation-duration:.01ms!important}}
