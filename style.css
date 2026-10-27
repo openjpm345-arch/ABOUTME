@@ -59,3 +59,12 @@ body.is-entering{overflow:hidden}
 .reveal{animation:reveal .8s cubic-bezier(.2,.75,.2,1) both}
 @media(max-width:650px){.gallery-section{padding:8px 0 52px}.photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:190px 190px;gap:9px}.photo-card-wide{grid-column:span 2;grid-row:auto}.photo-card{border-radius:16px}.photo-index{left:12px;bottom:12px;font-size:.72rem}.photo-open{right:10px;top:10px;width:30px;height:30px}.lightbox{padding:62px 42px}.lightbox-close{top:12px;right:12px}.lightbox-prev{left:5px}.lightbox-next{right:5px}.lightbox-close,.lightbox-nav{width:36px;height:36px}}
 @media(prefers-reduced-motion:reduce){.photo-card,.photo-card img,.photo-open,.lightbox,.lightbox img,.gallery-pulse{animation:none!important;transition:none!important}}
+
+/* Reveal gallery cards only when they enter the viewport */
+.gallery-heading.reveal-ready,.photo-card.reveal-ready{opacity:0;transform:translate3d(0,22px,0);animation:none}
+.gallery-heading.reveal-ready.is-visible,.photo-card.reveal-ready.is-visible{animation:galleryReveal .75s cubic-bezier(.2,.75,.2,1) both}
+.photo-card:nth-child(2).is-visible{animation-delay:.08s}
+.photo-card:nth-child(3).is-visible{animation-delay:.16s}
+@keyframes galleryReveal{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+body.lightbox-open{overflow:hidden}
+@media(prefers-reduced-motion:reduce){.gallery-heading.reveal-ready,.photo-card.reveal-ready{opacity:1;transform:none}.gallery-heading.reveal-ready.is-visible,.photo-card.reveal-ready.is-visible{animation:none}}
