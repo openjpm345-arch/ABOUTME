@@ -901,3 +901,11 @@ body:before{opacity:.08}
 @keyframes loveOrbitVisual{to{transform:translate(-50%,-50%) rotate(360deg)}}
 @media(max-width:650px){.stage:before{font-size:.46rem;letter-spacing:.12em}.book-cover-tag,.book-cover-caption{font-size:.43rem}.book{padding:13px!important}.book small{-webkit-line-clamp:4;font-size:.62rem!important}.book .symbol{font-size:1.65rem!important}}
 @media(prefers-reduced-motion:reduce){.love-modal.open .love-card,.love-heart-scene:before,.love-heart-scene:after{animation:none!important}}
+
+/* Keep the full Ismayanti cinematic sequence synchronized with the 6-second cue. */
+.love-modal.cinema-running .love-cinema-heart,
+.love-modal.cinema-running .love-cinema-giant-heart,
+.love-modal.cinema-running .love-cinema-burst,
+.love-modal.cinema-running .love-cinema-burst span,
+.love-modal.cinema-running .love-cinema-reform,
+.love-modal.cinema-running .love-cinema-float-hearts{animation-duration:6s!important}
