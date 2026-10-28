@@ -836,3 +836,20 @@ body:after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;back
 @media(prefers-reduced-motion:reduce){
  .ismayanti-love:before,.love-tab:before,.love-card:after{animation:none!important}
 }
+
+
+/* Buku kutipan: halaman bertumpuk, kilau aktif, dan gerak lebih hidup tanpa menaruh teks di atas foto. */
+.book{isolation:isolate;will-change:transform;transform-origin:center center}
+.book-pages{position:absolute;right:7px;top:15px;bottom:15px;width:7px;border-radius:0 3px 3px 0;background:repeating-linear-gradient(to bottom,#d9e6b8 0 1px,#5e674e 1px 3px);opacity:.5;transform:translateZ(-3px);box-shadow:2px 0 0 #20261a}
+.book-pages:before,.book-pages:after{content:"";position:absolute;inset:3px -3px 3px 2px;border-right:1px solid #d7ff6330;border-radius:0 3px 3px 0}
+.book-pages:after{inset:6px -5px 6px 3px;opacity:.5}
+.book-spark{position:absolute;right:17px;top:45%;font-size:1rem;color:var(--acid);opacity:0;transform:scale(.4) rotate(-30deg);pointer-events:none}
+.book.active .book-spark{animation:bookSpark 2.8s ease-in-out infinite}
+.book.active:before{background:linear-gradient(115deg,#ffffff16,transparent 28%,transparent 58%,#d7ff631b);animation:bookLightSweep 6s ease-in-out infinite}
+.book.active strong{ text-shadow:0 0 20px #d7ff6314}
+@keyframes bookSpark{0%,100%{opacity:0;transform:scale(.4) rotate(-30deg)}45%,60%{opacity:.9;transform:scale(1.15) rotate(18deg)}}
+@keyframes bookLightSweep{0%,100%{opacity:.65}50%{opacity:1}}
+.stage.entered .book:nth-child(6){animation-delay:.48s}.stage.entered .book:nth-child(7){animation-delay:.56s}.stage.entered .book:nth-child(8){animation-delay:.64s}.stage.entered .book:nth-child(9){animation-delay:.72s}
+.photo-card .photo-index{display:none!important}
+@media(max-width:650px){.book-pages{right:5px;top:12px;bottom:12px;width:5px}.book-spark{right:12px;font-size:.85rem}}
+@media(prefers-reduced-motion:reduce){.book.active .book-spark,.book.active:before{animation:none!important}.book-spark{opacity:.45}}
