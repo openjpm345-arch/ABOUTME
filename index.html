@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080a16">
+<meta name="theme-color" content="#0a0b0e">
 <meta name="description" content="Pengalaman cerita pribadi interaktif dengan animasi 3D, foto, dan pesan spesial.">
 <title>Beyond / Me — Cerita Pribadi</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="is-entering">
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="ambient-orb ambient-orb-one" aria-hidden="true"></div><div class="ambient-orb ambient-orb-two" aria-hidden="true"></div><div class="grain-overlay" aria-hidden="true"></div>
 <div class="intro-screen" id="introScreen" role="status" aria-label="Cinematic introduction">
   <div class="cinema-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="cinema-scan" aria-hidden="true"></div><div class="cinema-ring cinema-ring-one" aria-hidden="true"></div><div class="cinema-ring cinema-ring-two" aria-hidden="true"></div>
@@ -30,41 +31,33 @@
 <div class="wrap">
 <header class="nav reveal"><div class="brand"><span class="brandmark">✦</span><span>BEYOND / ME</span></div><span class="navtag">INTERACTIVE PROFILE · 3D</span></header>
 <main>
-<section class="hero reveal"><span class="eyebrow"><span class="dot"></span> A work in progress</span><h1><span class="gradient">More than</span><br>what you see.</h1><p>A small interactive space about curiosity, creativity, and building something from nothing. Explore the chapters and hear each story in English and Indonesian.</p><div class="hint">TOUCH · DRAG · SWIPE · EXPLORE</div></section>
-<section class="stage" id="stage" aria-label="Interactive 3D story books"><div class="orbit"></div><div class="book-field" id="bookField" aria-label="Swipe or drag to rotate the story books"></div></section>
+<section class="hero reveal"><span class="eyebrow"><span class="dot"></span> TUMBUH LEWAT PROSES</span><h1><span class="gradient">Kerja keras</span><br>punya cerita.</h1><p>Aku belum sampai di tujuan, tapi aku terus belajar, mencoba, dan membangun sesuatu dari hal-hal kecil. Setiap proses punya arti.</p><div class="hint">GESER · PILIH KUTIPAN · TEMUKAN MAKNA</div></section>
+<section class="stage" id="stage" aria-label="Kutipan tentang kerja keras"><div class="orbit"></div><div class="book-field" id="bookField" aria-label="Geser untuk membaca kutipan kerja keras"></div></section>
 <div class="controls"><button class="btn" id="prev" aria-label="Previous chapter">← Previous</button><div class="dots" id="dots" aria-label="Choose a chapter"></div><button class="btn" id="next" aria-label="Next chapter">Next →</button></div>
 <section class="about" id="about">
-<div class="about-side reveal"><span class="kicker">A little introduction</span><h2>Hi, I'm a creator in progress.</h2><p>I enjoy exploring technology, learning by doing, and turning ideas into real projects—one step at a time.</p><button class="btn primary" id="openAbout">Open my story ↗</button></div>
+<div class="about-side reveal"><span class="kicker">TENTANG AKU</span><h2>Pelan-pelan, aku sedang membangun masa depanku.</h2><p>Aku suka mencoba hal baru, terutama teknologi dan membuat website lewat HP. Aku sering mencari cara sendiri saat sesuatu belum berhasil, dan aku ingin terus berkembang meski langkahku belum selalu mudah.</p><button class="btn primary" id="openAbout">Kenali ceritaku ↗</button></div>
 <article class="story reveal" id="story" aria-live="polite"><span class="kicker" id="storyKicker">CHAPTER 01 / ABOUT ME</span><h3 id="storyTitle">Curious by nature.</h3><p id="storyText">I'm someone who likes to explore new ideas, learn new skills, and create things that people can interact with. I may still be learning, but I keep moving forward.</p><div class="story-foot"><div class="story-actions"><button class="sound" id="speak" type="button">▶ Dengarkan cerita</button><button class="sound language-toggle" id="toggleStoryLanguage" type="button" aria-pressed="false">Tampilkan English</button></div><span class="status" id="status">Suara bahasa Indonesia lalu Inggris · jika tersedia di perangkat</span></div></article>
 </section>
 </main>
 
 
-<section class="quote-section" id="quotes" aria-labelledby="quoteTitle">
-  <div class="quote-heading reveal"><span class="kicker">WORDS TO KEEP · 01—04</span><h2 id="quoteTitle">A story told in <span class="gradient">two languages.</span></h2><p>Little reminders for the journey — small words, meaningful steps.</p><p class="quote-heading-translation" lang="id">Pengingat kecil untuk perjalanan ini — kata sederhana, langkah yang berarti.</p></div>
-  <div class="quote-grid">
-    <article class="quote-card reveal"><span class="quote-mark">“</span><span class="quote-number">01 / KEEP LEARNING</span><h3>Still learning. Still building. Still becoming.</h3><p lang="id">Masih belajar. Masih berkarya. Masih bertumbuh menjadi diri sendiri.</p><span class="quote-line"></span></article>
-    <article class="quote-card reveal"><span class="quote-mark">“</span><span class="quote-number">02 / THE JOURNEY</span><h3>Every step is part of the story.</h3><p lang="id">Setiap langkah adalah bagian dari cerita.</p><span class="quote-line"></span></article>
-    <article class="quote-card reveal"><span class="quote-mark">“</span><span class="quote-number">03 / LITTLE MOMENTS</span><h3>Little moments. Lasting memories.</h3><p lang="id">Momen sederhana. Kenangan yang bertahan lama.</p><span class="quote-line"></span></article>
-    <article class="quote-card quote-card-feature reveal"><span class="quote-mark">“</span><span class="quote-number">04 / WHAT COMES NEXT</span><h3>This is not the end. It’s only the beginning.</h3><p lang="id">Ini bukan akhir. Ini baru permulaan.</p><span class="quote-line"></span></article>
-  </div>
-</section>
+
 <section class="gallery-section" id="gallery" aria-labelledby="galleryTitle">
-  <div class="gallery-heading reveal"><span class="kicker">VISUAL ARCHIVE · 01—03</span><h2 id="galleryTitle">Frames of <span class="gradient">my world.</span></h2><p>A few moments, collected in one place.</p></div>
+  <div class="gallery-heading reveal"><span class="kicker">VISUAL ARCHIVE · 01—03</span><h2 id="galleryTitle">Potongan <span class="gradient">duniaku.</span></h2><p>Ruang untuk foto-foto yang punya suasana, cerita, dan makna.</p></div>
   <div class="photo-grid">
-    <button class="photo-card reveal" type="button" data-photo="3e79658ea527ec2b9745a25b40ec5fcd.jpg" aria-label="Buka foto 1"><img src="3e79658ea527ec2b9745a25b40ec5fcd.jpg" alt="Foto Frames 1" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-index">01 <i>/ FRAME</i></span><span class="photo-open">↗</span></button>
-    <button class="photo-card reveal" type="button" data-photo="44ac8b303042c120f5c35463028591a2.jpg" aria-label="Buka foto 2"><img src="44ac8b303042c120f5c35463028591a2.jpg" alt="Foto Frames 2" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-index">02 <i>/ FRAME</i></span><span class="photo-open">↗</span></button>
-    <button class="photo-card reveal" type="button" data-photo="e5ce7590f1d0464062dd8cef7717f173.jpg" aria-label="Buka foto 3"><img src="e5ce7590f1d0464062dd8cef7717f173.jpg" alt="Foto Frames 3" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-index">03 <i>/ FRAME</i></span><span class="photo-open">↗</span></button>
+    <button class="photo-card reveal" type="button" data-photo="3e79658ea527ec2b9745a25b40ec5fcd.jpg" aria-label="Buka foto 1"><img src="3e79658ea527ec2b9745a25b40ec5fcd.jpg" alt="Foto Frames 1" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-open">↗</span></button>
+    <button class="photo-card reveal" type="button" data-photo="44ac8b303042c120f5c35463028591a2.jpg" aria-label="Buka foto 2"><img src="44ac8b303042c120f5c35463028591a2.jpg" alt="Foto Frames 2" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-open">↗</span></button>
+    <button class="photo-card reveal" type="button" data-photo="e5ce7590f1d0464062dd8cef7717f173.jpg" aria-label="Buka foto 3"><img src="e5ce7590f1d0464062dd8cef7717f173.jpg" alt="Foto Frames 3" loading="lazy" decoding="async"><span class="photo-shade"></span><span class="photo-open">↗</span></button>
   </div>
-  <p class="gallery-note"><span class="gallery-pulse"></span> 3 FOTO · TEKAN FOTO UNTUK MEMPERBESAR</p>
+  <p class="gallery-note"><span class="gallery-pulse"></span> 3 FOTO · TEKAN UNTUK MELIHAT DETAIL</p>
 </section>
 <section class="ismayanti-love" aria-label="Pesan spesial untuk Ismayanti">
   <button class="love-tab" id="openLove" type="button" aria-haspopup="dialog" aria-controls="loveModal"><span class="love-tab-heart" aria-hidden="true">♡</span><span>Ismayanti</span><span class="love-tab-spark" aria-hidden="true">✦</span></button>
 </section>
 <div class="love-modal" id="loveModal" role="dialog" aria-modal="true" aria-labelledby="loveTitle" aria-hidden="true">
   <div class="love-backdrop" data-close-love="true"></div>
-  <audio id="loveCardAudio" preload="auto" src="/ssstik.io_1793133098316.mp3"></audio>
-  <audio id="loveExplosionAudio" preload="auto" src="/ssstik.io_1793133308800.mp3"></audio>
+  <audio id="loveCardAudio" preload="auto" src="ssstik.io_1793133098316.mp3"></audio>
+  <audio id="loveExplosionAudio" preload="auto" src="ssstik.io_1793133308800.mp3"></audio>
   <div class="love-cinema" id="loveCinema" aria-hidden="true">
     <div class="love-cinema-stars" aria-hidden="true"></div>
     <div class="love-cinema-orbit orbit-a" aria-hidden="true"></div><div class="love-cinema-orbit orbit-b" aria-hidden="true"></div>
