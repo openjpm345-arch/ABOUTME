@@ -966,3 +966,38 @@ body:before{opacity:.08}
 .love-modal.cinema-running .love-cinema-heart{animation:cinemaHeartForm 1.6s ease-in-out infinite alternate,cinemaHeartPulse .8s ease-in-out infinite!important}
 @keyframes cinemaStarsPulse{0%,100%{opacity:.25;filter:brightness(.8)}50%{opacity:1;filter:brightness(1.8)}}
 @media(prefers-reduced-motion:reduce){.book,#bookField:before,#bookField:after,.love-cinema-card-light,.love-cinema-card-light:before{animation:none!important}.book{margin-top:0!important}}
+
+
+/* Autonomous 3D book carousel: visible movement and extra light trails */
+.book-field{perspective:1450px;transform-style:preserve-3d}
+.book-field:before{content:"";position:absolute;left:50%;top:50%;width:min(76vw,480px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;background:radial-gradient(circle,#d7e8df12 0, #b7d9d408 34%,transparent 68%);animation:bookCorePulse 3.2s ease-in-out infinite}
+.book-field:after{content:"✦";position:absolute;left:50%;top:50%;z-index:24;pointer-events:none;color:#e4eee7;font-size:1.1rem;text-shadow:0 0 12px #e7f5eb,0 0 32px #d0e9de;opacity:0;animation:bookCenterSpark 3.9s ease-in-out infinite}
+.book{transition:transform .9s cubic-bezier(.16,.84,.24,1),opacity .65s ease,filter .65s ease,border-color .5s,box-shadow .5s}
+.book.active{animation:bookFocusGlow 3.9s ease-in-out infinite}
+.book.active .symbol{animation:bookIconFloat 2.1s ease-in-out infinite}
+.book.active .book-cover-tag,.book.active .book-cover-caption{animation:bookCaptionGlow 2.7s ease-in-out infinite}
+.book.active .shine{animation-duration:3.5s}
+.book.active .book-spark{animation:bookSpark 1.6s ease-in-out infinite}
+@keyframes bookCorePulse{0%,100%{opacity:.45;scale:.86}50%{opacity:1;scale:1.08}}
+@keyframes bookCenterSpark{0%,18%,100%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-30deg)}42%,58%{opacity:.9;transform:translate(-50%,-50%) scale(1.6) rotate(30deg)}}
+@keyframes bookFocusGlow{0%,100%{filter:brightness(1) drop-shadow(0 0 0 #d7e8df00)}50%{filter:brightness(1.12) drop-shadow(0 0 20px #d7e8df29)}}
+@keyframes bookIconFloat{0%,100%{translate:0 0;rotate:-3deg}50%{translate:0 -7px;rotate:4deg}}
+@keyframes bookCaptionGlow{0%,100%{opacity:.76}50%{opacity:1}}
+/* Ismayanti: light gathers first, then folds into the ID card silhouette */
+.love-cinema-reform{isolation:isolate}
+.love-cinema-reform:before{content:"";position:absolute;left:50%;top:50%;z-index:-1;width:140%;height:140%;border-radius:50%;transform:translate(-50%,-50%) scale(.12);opacity:0;pointer-events:none;background:radial-gradient(ellipse at center,#fff 0 1%,#f5c7df 3%,#e4b4e7 9%,#a9d9d7 18%,#d5e7df20 36%,transparent 68%);filter:blur(5px);mix-blend-mode:screen}
+.love-cinema-reform:after{content:"";position:absolute;left:50%;top:50%;z-index:-2;width:180%;height:180%;border-radius:50%;transform:translate(-50%,-50%) scale(.1);opacity:0;pointer-events:none;background:conic-gradient(from 0deg,transparent 0 8%,#f5d6e8a8 9%,transparent 12% 23%,#d5f4e8a0 24%,transparent 27% 42%,#f3c9e7a0 43%,transparent 46% 62%,#d9f5ee90 63%,transparent 67% 83%,#f7d6e7a0 84%,transparent 88%);filter:blur(2px);mix-blend-mode:screen}
+.love-modal.cinema-running:not(.cinema-bursting) .love-cinema-reform:before{animation:cardLightGather 6s cubic-bezier(.16,.72,.2,1) both}
+.love-modal.cinema-running:not(.cinema-bursting) .love-cinema-reform:after{animation:cardLightRays 6s linear both}
+.love-modal.cinema-bursting .love-cinema-reform:before{animation:cardLightSnap .72s ease-out both}
+.love-modal.cinema-bursting .love-cinema-reform:after{animation:cardLightSnapRays .72s ease-out both}
+.love-modal.cinema-card-forming .love-cinema-reform:before{opacity:0;animation:none}
+.love-modal.cinema-card-forming .love-card:before{animation:idCardLightSweep 1.2s ease-out both, idCardEdgeGlow 1.8s ease-out both!important}
+.love-modal.cinema-card-forming .love-card{filter:drop-shadow(0 0 30px #e6c4d95c)}
+@keyframes cardLightGather{0%{opacity:0;transform:translate(-50%,-50%) scale(.12)}25%{opacity:.25;transform:translate(-50%,-50%) scale(.42)}62%{opacity:.82;transform:translate(-50%,-50%) scale(1.15)}88%,100%{opacity:.95;transform:translate(-50%,-50%) scale(1.42)}}
+@keyframes cardLightRays{0%{opacity:0;transform:translate(-50%,-50%) scale(.1) rotate(0)}35%{opacity:.25;transform:translate(-50%,-50%) scale(.6) rotate(90deg)}75%{opacity:.95;transform:translate(-50%,-50%) scale(1.15) rotate(250deg)}100%{opacity:.8;transform:translate(-50%,-50%) scale(1.35) rotate(360deg)}}
+@keyframes cardLightSnap{0%{opacity:.95;transform:translate(-50%,-50%) scale(1.5)}45%{opacity:1;transform:translate(-50%,-50%) scale(1.85)}100%{opacity:0;transform:translate(-50%,-50%) scale(2.5)}}
+@keyframes cardLightSnapRays{0%{opacity:.9;transform:translate(-50%,-50%) scale(1.2) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(2.7) rotate(120deg)}}
+@keyframes idCardEdgeGlow{0%{box-shadow:0 0 0 0 #f4d5e900,0 0 0 #d4e9e900}35%{box-shadow:0 0 0 2px #f4d5e9c9,0 0 55px #d4e9e9a6}100%{box-shadow:0 0 0 1px #f4d5e950,0 0 25px #d4e9e94a}}
+@media(max-width:650px){.book-field:before{width:95vw}.book-field:after{font-size:.85rem}}
+@media(prefers-reduced-motion:reduce){.book-field:before,.book-field:after,.book.active,.book.active .symbol,.book.active .book-cover-tag,.book.active .book-cover-caption,.love-cinema-reform:before,.love-cinema-reform:after{animation:none!important}.love-cinema-reform:before,.love-cinema-reform:after{display:none}}
