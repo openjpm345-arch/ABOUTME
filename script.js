@@ -8,7 +8,10 @@ const chapters=[
 ,{icon:'✧',label:'TERUS BERTUMBUH',title:'Still learning. Still building. Still becoming.',text:'Learning is not a phase you outgrow. Keep building, keep asking questions, and allow every version of yourself to become a little wiser.',short:'Terus belajar dan berkarya.',idTitle:'Masih belajar, masih berkarya, terus bertumbuh.',idText:'Belajar bukan sesuatu yang harus berhenti. Terus berkarya, berani bertanya, dan beri dirimu kesempatan untuk menjadi lebih bijak dari sebelumnya.'},
 {icon:'↗',label:'HARGAI SETIAP LANGKAH',title:'Every step is part of the story.',text:'Small progress still counts. Even a slow step can take you closer to the person you want to become.',short:'Setiap langkah punya arti.',idTitle:'Setiap langkah adalah bagian dari cerita.',idText:'Kemajuan kecil tetap berarti. Bahkan langkah yang pelan bisa membawamu lebih dekat pada diri yang ingin kamu bangun.'},
 {icon:'✦',label:'SIMPAN KENANGAN',title:'Little moments. Lasting memories.',text:'Not every meaningful thing has to be big. Sometimes the moments that seem simple become the ones you remember most.',short:'Momen kecil, kenangan panjang.',idTitle:'Momen sederhana, kenangan yang bertahan.',idText:'Tidak semua hal berharga harus besar. Kadang momen yang terlihat sederhana justru menjadi kenangan yang paling lama kita simpan.'},
-{icon:'∞',label:'MULAI LAGI',title:'This is not the end. It is only the beginning.',text:'A new chapter can begin whenever you choose to learn from the past and take one more honest step forward.',short:'Ini baru permulaan.',idTitle:'Ini bukan akhir, ini baru permulaan.',idText:'Bab baru bisa dimulai saat kamu memilih belajar dari masa lalu dan mengambil satu langkah jujur lagi ke depan.'}];
+{icon:'∞',label:'MULAI LAGI',title:'This is not the end. It is only the beginning.',text:'A new chapter can begin whenever you choose to learn from the past and take one more honest step forward.',short:'Ini baru permulaan.',idTitle:'Ini bukan akhir, ini baru permulaan.',idText:'Bab baru bisa dimulai saat kamu memilih belajar dari masa lalu dan mengambil satu langkah jujur lagi ke depan.'},
+{icon:'⌘',label:'BANGUN SESUATU',title:'Turn ideas into real things.',text:'An idea becomes more valuable when you test it, improve it, and let people experience what you made.',short:'Bikin ide jadi nyata.',idTitle:'Ubah ide menjadi sesuatu yang nyata.',idText:'Ide akan lebih berarti saat kamu berani mencoba, memperbaikinya, dan membuat sesuatu yang bisa benar-benar digunakan.'},
+{icon:'↗',label:'BERANI MULAI',title:'You can learn while building.',text:'You do not need to know every answer first. Start carefully, solve one problem at a time, and keep improving your work.',short:'Belajar sambil membangun.',idTitle:'Berani mulai meski belum tahu semuanya.',idText:'Kamu tidak harus tahu semua jawaban sejak awal. Mulai dengan hati-hati, selesaikan masalah satu per satu, lalu terus tingkatkan hasilmu.'},
+{icon:'✧',label:'JAGA ARAH',title:'Build for the future you want.',text:'Use your time to learn useful skills, make honest progress, and create options for the life you want to build.',short:'Siapkan masa depan sedikit demi sedikit.',idTitle:'Bangun arah menuju masa depanmu.',idText:'Gunakan waktumu untuk mempelajari keterampilan, membuat kemajuan yang nyata, dan membuka peluang bagi masa depan yang ingin kamu bangun.'}];
 const field=document.getElementById('bookField'),dots=document.getElementById('dots'),story=document.getElementById('story');let active=0,startX=0,startY=0,dragging=false,moved=false;const cards=[];
 chapters.forEach((c,i)=>{const b=document.createElement('button');b.className='book';b.type='button';b.setAttribute('aria-label','Baca kutipan: '+c.label);b.innerHTML='<span class="number">'+String(i+1).padStart(2,'0')+' / MINDSET</span><span class="symbol">'+c.icon+'</span><strong>'+c.idTitle+'</strong><small>'+c.idText+'</small><span class="book-pages" aria-hidden="true"></span><span class="book-spark" aria-hidden="true">✦</span><span class="shine"></span><span class="quote-card-line" aria-hidden="true"></span>';b.addEventListener('click',()=>{if(!moved)select(i,true)});field.appendChild(b);cards.push(b);const d=document.createElement('button');d.className='dotbtn';d.type='button';d.setAttribute('aria-label','Go to '+c.label);d.addEventListener('click',()=>select(i,true));dots.appendChild(d)});
 function render(){const total=cards.length;cards.forEach((b,i)=>{let delta=((i-active+total+total/2)%total)-Math.floor(total/2);if(total%2===0&&delta===total/2)delta=-total/2;const abs=Math.abs(delta),x=delta*108,z=-abs*76,y=abs*9,ry=delta*-19;b.style.transform='translate3d('+x+'px,'+y+'px,'+z+'px) rotateY('+ry+'deg) rotateZ('+(delta*1.5)+'deg) scale('+(1-abs*.12)+')';b.style.zIndex=20-abs;b.style.opacity=abs>2?'0':String(1-abs*.17);b.style.pointerEvents=abs>2?'none':'auto';b.classList.toggle('active',i===active);b.setAttribute('aria-pressed',String(i===active))});[...dots.children].forEach((d,i)=>d.setAttribute('aria-current',String(i===active)))}
@@ -16,9 +19,50 @@ function select(i,scroll){active=(i+chapters.length)%chapters.length;render();co
 document.getElementById('prev').addEventListener('click',()=>select(active-1,false));document.getElementById('next').addEventListener('click',()=>select(active+1,false));document.getElementById('openAbout').addEventListener('click',()=>{select(0,false);document.getElementById('about').scrollIntoView({behavior:'smooth',block:'center'})});
 field.addEventListener('pointerdown',e=>{dragging=true;moved=false;startX=e.clientX;startY=e.clientY;field.classList.add('dragging');field.setPointerCapture(e.pointerId)});field.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-startX;if(Math.abs(dx)>12||Math.abs(e.clientY-startY)>12)moved=true;if(Math.abs(dx)>38){select(active+(dx<0?1:-1),false);startX=e.clientX}});function stopDrag(){dragging=false;field.classList.remove('dragging');setTimeout(()=>moved=false,80)}field.addEventListener('pointerup',stopDrag);field.addEventListener('pointercancel',stopDrag);field.addEventListener('lostpointercapture',stopDrag);
 let auto=true,autoTimer;function resetAuto(){clearInterval(autoTimer);autoTimer=setInterval(()=>{if(auto&&!document.hidden)select(active+1,false)},6500)}field.addEventListener('pointerdown',()=>{auto=false;clearInterval(autoTimer)});document.getElementById('next').addEventListener('click',()=>{auto=false;clearInterval(autoTimer)});document.getElementById('prev').addEventListener('click',()=>{auto=false;clearInterval(autoTimer)});
+/* Once after the intro: let each book travel around the viewport for five seconds, then return to its own slot. */
+function launchBookFlight(){
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||document.hidden||!field||!cards.length)return;
+ const overlay=document.createElement('div');overlay.className='book-flight-overlay';overlay.setAttribute('aria-hidden','true');
+ Object.assign(overlay.style,{position:'fixed',inset:'0',zIndex:'9998',pointerEvents:'none',overflow:'hidden'});
+ const flights=cards.map((book,i)=>{
+  const rect=book.getBoundingClientRect();
+  const clone=book.cloneNode(true);clone.classList.add('book-flight-clone');clone.removeAttribute('id');
+  Object.assign(clone.style,{position:'fixed',left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px',margin:'0',opacity:rect.width&&rect.height?'1':'0',pointerEvents:'none',transition:'left 1.05s cubic-bezier(.2,.75,.2,1), top 1.05s cubic-bezier(.2,.75,.2,1), transform 1.05s cubic-bezier(.2,.75,.2,1), opacity .45s ease',zIndex:String(20+i),transform:'translate3d(0,0,0) rotate(0deg) scale(1)'});
+  overlay.appendChild(clone);return {book,clone};
+ });
+ document.body.appendChild(overlay);
+ cards.forEach(book=>{book.dataset.flightOpacity=book.style.opacity;book.style.opacity='0';});
+ let step=0;
+ function scatter(){
+  flights.forEach(({clone},i)=>{
+   const w=clone.getBoundingClientRect().width||120,h=clone.getBoundingClientRect().height||180;
+   const x=Math.max(4,Math.random()*Math.max(8,window.innerWidth-w-8));
+   const y=Math.max(8,Math.random()*Math.max(16,window.innerHeight-h-16));
+   clone.style.left=x+'px';clone.style.top=y+'px';
+   clone.style.transform='translate3d(0,0,0) rotate('+((Math.random()-.5)*34)+'deg) scale('+(0.72+Math.random()*.42)+')';
+   clone.style.zIndex=String(30+i+step);
+  });
+ }
+ requestAnimationFrame(()=>requestAnimationFrame(scatter));
+ const drift=setInterval(()=>{step++;scatter()},850);
+ window.setTimeout(()=>{
+  clearInterval(drift);
+  flights.forEach(({book,clone})=>{
+   const rect=book.getBoundingClientRect();
+   clone.style.left=rect.left+'px';clone.style.top=rect.top+'px';
+   clone.style.width=rect.width+'px';clone.style.height=rect.height+'px';
+   clone.style.transform='translate3d(0,0,0) rotate(0deg) scale(1)';
+  });
+  window.setTimeout(()=>{
+   flights.forEach(({book})=>{book.style.opacity=book.dataset.flightOpacity;delete book.dataset.flightOpacity;});
+   overlay.remove();
+  },1150);
+ },5000);
+}
+window.setTimeout(launchBookFlight,4300);
 let storyLanguage='id';
 function paintStoryLanguage(){
- const c=chapters[active],idLabels=['MULAI DARI KECIL','TETAP BERUSAHA','BELAJAR DARI GAGAL','JANGAN MENYERAH','BANGUN MASA DEPAN','TERUS BERTUMBUH','HARGAI SETIAP LANGKAH','SIMPAN KENANGAN','MULAI LAGI'];
+ const c=chapters[active],idLabels=['MULAI DARI KECIL','TETAP BERUSAHA','BELAJAR DARI GAGAL','JANGAN MENYERAH','BANGUN MASA DEPAN','TERUS BERTUMBUH','HARGAI SETIAP LANGKAH','SIMPAN KENANGAN','MULAI LAGI','BANGUN SESUATU','BERANI MULAI','JAGA ARAH'];
  document.getElementById('storyKicker').textContent=storyLanguage==='id'?'BAB 0'+(active+1)+' / '+idLabels[active]:'CHAPTER 0'+(active+1)+' / '+c.label;
  document.getElementById('storyTitle').textContent=storyLanguage==='id'?c.idTitle:c.title;
  document.getElementById('storyText').textContent=storyLanguage==='id'?c.idText:c.text;
