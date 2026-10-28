@@ -909,3 +909,60 @@ body:before{opacity:.08}
 .love-modal.cinema-running .love-cinema-burst span,
 .love-modal.cinema-running .love-cinema-reform,
 .love-modal.cinema-running .love-cinema-float-hearts{animation-duration:6s!important}
+
+
+/* KINETIC PHOTO BOOKS: autonomous floating, orbiting light, page flutter and stronger transitions */
+#bookField{perspective:1400px;transform-style:preserve-3d;overflow:visible}
+#bookField:before{content:"";position:absolute;z-index:0;left:50%;top:50%;width:min(78vw,480px);aspect-ratio:1;border:1px solid #d9e8e025;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 35px #d9e8e00b,inset 0 0 45px #d9e8e008;animation:bookOrbit 16s linear infinite}
+#bookField:after{content:"✦   ·   ✧   ·   ✦";position:absolute;left:50%;top:50%;z-index:22;color:#e5f1e6;letter-spacing:1.6em;font-size:.68rem;white-space:nowrap;text-shadow:0 0 16px #c7e7d6;pointer-events:none;animation:bookSparkOrbit 10s linear infinite}
+.book{animation:bookIdleFloat 3.8s ease-in-out infinite;will-change:transform,filter}
+.book:nth-child(3n+1){animation-delay:-1.1s}
+.book:nth-child(3n+2){animation-delay:-2.4s}
+.book:nth-child(3n){animation-delay:-.4s}
+.book.active{animation:bookHeroFloat 2.6s ease-in-out infinite;filter:brightness(1.1) saturate(1.12)}
+.book .shine{animation:bookShimmer 4.2s ease-in-out infinite}
+.book .book-cover-tag,.book .book-cover-caption{transition:letter-spacing .45s,opacity .45s}
+.book.active .book-cover-tag,.book.active .book-cover-caption{letter-spacing:.25em}
+.book .book-pages{transform-origin:left center;animation:bookPageFlicker 3.3s ease-in-out infinite}
+.book.active:before{animation:bookCoverFlash 3.1s ease-in-out infinite}
+@keyframes bookIdleFloat{0%,100%{margin-top:0;filter:brightness(.93)}50%{margin-top:-11px;filter:brightness(1.04)}}
+@keyframes bookHeroFloat{0%,100%{margin-top:0;filter:brightness(1.08) saturate(1.05)}50%{margin-top:-15px;filter:brightness(1.22) saturate(1.25)}}
+@keyframes bookOrbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes bookSparkOrbit{to{transform:translate(-50%,-50%) rotate(-360deg)}}
+@keyframes bookShimmer{0%,100%{left:-120%;opacity:.2}48%{opacity:.8}65%{left:150%;opacity:.25}}
+@keyframes bookPageFlicker{0%,100%{filter:brightness(.8)}50%{filter:brightness(1.5)}}
+@keyframes bookCoverFlash{0%,100%{opacity:.45}50%{opacity:1}}
+#bookField.dragging .book{animation-duration:1.5s}
+.controls .btn{transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s}
+.controls .btn:hover{transform:translateY(-3px);box-shadow:0 10px 35px #d9e8e01b;border-color:#d9e8e080}
+.dots .dotbtn[aria-current="true"]{box-shadow:0 0 18px #e2efe4a0;transform:scale(1.35)}
+/* Ismayanti: light forms the ID card before the card itself appears */
+.love-cinema-card-light{position:absolute;z-index:26;left:50%;top:48%;width:min(78vw,390px);height:clamp(170px,45vw,245px);transform:translate(-50%,-50%) scale(.08) rotateX(70deg);opacity:0;pointer-events:none;perspective:1000px}
+.love-cinema-card-light:before{content:"";position:absolute;inset:-55%;background:conic-gradient(from 0deg,transparent,#f8d9e9aa,transparent,#d8e9ffb0,transparent,#fff,transparent);filter:blur(20px);animation:idLightWheel 2.2s linear infinite}
+.love-cinema-card-light:after{content:"";position:absolute;inset:0;border:1px solid #fff;border-radius:19px;background:linear-gradient(125deg,#fff9,#f4cce955 24%,#dbe9ff35 48%,#fff8 50%,#d2e6df66 70%,#fff8);box-shadow:0 0 18px #fff,0 0 45px #f4cce9,0 0 95px #d8e9ff,0 0 155px #e8d7ff;backdrop-filter:blur(5px)}
+.love-cinema-card-light i{position:absolute;z-index:2;left:12%;right:12%;height:1px;background:#fff;box-shadow:0 0 12px 4px #fff,0 0 28px 8px #f4cce9;transform:scaleX(0);transform-origin:center}
+.love-cinema-card-light i:nth-child(1){top:24%}.love-cinema-card-light i:nth-child(2){top:50%}.love-cinema-card-light i:nth-child(3){top:76%}
+.love-cinema-card-light b{position:absolute;z-index:3;left:13%;top:31%;width:23%;height:42%;border:1px solid #fff;border-radius:8px;background:linear-gradient(145deg,#fff9,#e6c6dd35);box-shadow:0 0 18px #fff}
+.love-modal.cinema-bursting .love-cinema-card-light{animation:idLightGather 1.05s cubic-bezier(.16,1,.3,1) both}
+.love-modal.cinema-bursting .love-cinema-card-light i{animation:idLightScan .65s ease-out both}
+.love-modal.cinema-bursting .love-cinema-card-light i:nth-child(2){animation-delay:.12s}
+.love-modal.cinema-bursting .love-cinema-card-light i:nth-child(3){animation-delay:.24s}
+.love-modal.cinema-card-forming .love-cinema-card-light{animation:idLightDissolve .75s ease-in both}
+.love-cinema-reform{opacity:0!important;transform:translate(-50%,-50%) scale(.25) rotateY(35deg);filter:blur(12px) brightness(2.5)}
+.love-modal.cinema-card-forming .love-cinema-reform{animation:idCardFromLight 1.2s cubic-bezier(.16,1,.3,1) both!important;opacity:1!important}
+.love-modal.cinema-card-forming .love-cinema-reform span,.love-modal.cinema-card-forming .love-cinema-reform strong,.love-modal.cinema-card-forming .love-cinema-reform small{animation:idCardTextReveal .8s .35s ease-out both}
+@keyframes idLightWheel{to{transform:rotate(360deg)}}
+@keyframes idLightGather{0%{opacity:0;transform:translate(-50%,-50%) scale(.08) rotateX(70deg)}24%{opacity:1;transform:translate(-50%,-50%) scale(.25) rotateX(48deg)}72%{opacity:1;transform:translate(-50%,-50%) scale(1.08) rotateX(0)}100%{opacity:1;transform:translate(-50%,-50%) scale(1) rotateX(0)}}
+@keyframes idLightScan{0%{transform:scaleX(0);opacity:0}40%{transform:scaleX(1);opacity:1}100%{transform:scaleX(.4);opacity:.35}}
+@keyframes idLightDissolve{to{opacity:0;transform:translate(-50%,-50%) scale(1.3);filter:blur(24px)}}
+@keyframes idCardFromLight{0%{opacity:0;transform:translate(-50%,-50%) scale(.18) rotateY(45deg);filter:blur(16px) brightness(3)}45%{opacity:1;filter:blur(1px) brightness(1.8)}70%{transform:translate(-50%,-50%) scale(1.07) rotateY(-6deg);filter:blur(0) brightness(1.15)}100%{opacity:1;transform:translate(-50%,-50%) scale(1) rotateY(0);filter:blur(0) brightness(1)}}
+@keyframes idCardTextReveal{0%{opacity:0;filter:blur(8px);letter-spacing:.5em}100%{opacity:1;filter:blur(0);letter-spacing:inherit}}
+.love-modal.cinema-running .love-cinema-orbit{animation:bookOrbit 5s linear infinite!important}
+.love-modal.cinema-running .love-cinema-orbit.orbit-b{animation-direction:reverse!important;animation-duration:3.8s!important}
+.love-modal.cinema-running .love-cinema-stars{animation:cinemaStarsDrift 7s linear infinite,cinemaStarsPulse 2.5s ease-in-out infinite}
+.love-modal.cinema-running .love-cinema-float-hearts span{animation:cinemaHeartForm 3s ease-in-out infinite alternate}
+.love-modal.cinema-running .love-cinema-float-hearts span:nth-child(2n){animation-delay:-1.1s}
+.love-modal.cinema-running .love-cinema-float-hearts span:nth-child(3n){animation-delay:-2s}
+.love-modal.cinema-running .love-cinema-heart{animation:cinemaHeartForm 1.6s ease-in-out infinite alternate,cinemaHeartPulse .8s ease-in-out infinite!important}
+@keyframes cinemaStarsPulse{0%,100%{opacity:.25;filter:brightness(.8)}50%{opacity:1;filter:brightness(1.8)}}
+@media(prefers-reduced-motion:reduce){.book,#bookField:before,#bookField:after,.love-cinema-card-light,.love-cinema-card-light:before{animation:none!important}.book{margin-top:0!important}}
