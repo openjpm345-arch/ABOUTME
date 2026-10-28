@@ -135,3 +135,59 @@ if(loveCardAudio)loveCardAudio.addEventListener('playing',()=>{if(voiceStatus)vo
   targets.forEach(el=>{el.classList.add('reveal-ready');observer.observe(el)});
  }
 })();
+
+
+/* Memory Orbit interaction */
+(function(){
+ const orbit=document.getElementById('memoryOrbit');
+ const toggle=document.getElementById('toggleMemoryOrbit');
+ const caption=document.getElementById('memoryOrbitCaption');
+ const openButton=document.getElementById('openMemoryPhoto');
+ if(!orbit||!toggle||!caption||!openButton)return;
+ const books=Array.from(orbit.querySelectorAll('.memory-book'));
+ let active=0,opened=false;
+ function arrange(){
+  const radius=window.innerWidth<=360?122:window.innerWidth<=650?139:220;
+  books.forEach(function(book,i){
+   book.classList.toggle('is-selected',i===active);
+   if(!opened){
+    book.style.left='';book.style.top='';book.style.transform='';book.style.animationDelay='';
+    return;
+   }
+   const angle=-90+(((i-active+books.length)%books.length)*360/books.length);
+   const x=Math.cos(angle*Math.PI/180)*radius;
+   const y=Math.sin(angle*Math.PI/180)*radius;
+   book.style.left='calc(50% + '+x.toFixed(1)+'px)';
+   book.style.top='calc(50% + '+y.toFixed(1)+'px)';
+   book.style.transform='translate(-50%,-50%) rotate('+(angle+90)+'deg) scale('+(i===active?1.06:.92)+')';
+   book.style.animationDelay=(i*.045)+'s';
+  });
+  caption.textContent=opened?books[active].dataset.caption+' · '+(active+1)+' / '+books.length:'9 buku foto siap membentuk orbit interaktif.';
+  openButton.disabled=!opened;
+  toggle.textContent=opened?'↻ Kembali ke susunan foto':'✦ Bentuk lingkaran buku';
+  toggle.setAttribute('aria-expanded',String(opened));
+ }
+ toggle.addEventListener('click',function(){
+  opened=!opened;orbit.classList.toggle('is-open',opened);
+  if(!opened)active=0;
+  arrange();
+ });
+ books.forEach(function(book,i){book.addEventListener('click',function(){
+  if(!opened){opened=true;orbit.classList.add('is-open')}
+  active=i;arrange();
+ })});
+ openButton.addEventListener('click',function(){
+  if(!opened)return;
+  const image=document.getElementById('lightboxImage');
+  const box=document.getElementById('photoLightbox');
+  const count=document.getElementById('lightboxCount');
+  if(!image||!box)return;
+  image.src=books[active].dataset.photo;
+  image.alt=books[active].dataset.caption||'Foto kenangan';
+  if(count)count.textContent='♡';
+  box.classList.add('open');box.setAttribute('aria-hidden','false');
+  document.body.classList.add('lightbox-open');
+ });
+ window.addEventListener('resize',arrange,{passive:true});
+ arrange();
+})();
