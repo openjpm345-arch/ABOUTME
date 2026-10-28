@@ -853,3 +853,51 @@ body:after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;back
 .photo-card .photo-index{display:none!important}
 @media(max-width:650px){.book-pages{right:5px;top:12px;bottom:12px;width:5px}.book-spark{right:12px;font-size:.85rem}}
 @media(prefers-reduced-motion:reduce){.book.active .book-spark,.book.active:before{animation:none!important}.book-spark{opacity:.45}}
+
+
+/* Final art direction: real photo backdrop and photographic book covers */
+:root{--bg:#080a0b;--line:rgba(220,230,230,.18);--text:#f3f5f4;--muted:#b3bdbb;--cyan:#b7d9d4;--violet:#a8b8b5;--pink:#e7b7c8;--acid:#d5e7dc}
+body{background:#080a0b!important}
+body:after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(5,8,9,.68),rgba(5,8,9,.86)),url("https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=2200&q=85") center/cover no-repeat;opacity:.88}
+body:before{opacity:.08}
+.gradient{background:linear-gradient(100deg,#fff 8%,#c6ded7 52%,#e6c5d0 94%);color:transparent;background-clip:text;-webkit-background-clip:text}
+.hero:after{background:linear-gradient(90deg,transparent,#d9e8e0a0,transparent);box-shadow:0 0 20px #d9e8e01b}
+.stage:before{content:"A PERSONAL VISUAL JOURNAL";color:#d0d8d4;letter-spacing:.24em}
+.book{background:linear-gradient(180deg,rgba(7,10,11,.2),rgba(4,6,7,.88) 72%),var(--book-photo) center/cover!important;border:1px solid #e0e9e050!important;border-radius:13px!important;box-shadow:0 28px 70px #0009,inset 0 1px #ffffff2b!important}
+.book:before{inset:0;background:linear-gradient(115deg,#ffffff22,transparent 28%,transparent 55%,#d9e8e015)!important;opacity:.8}
+.book:after{left:9px;background:#ffffff36;box-shadow:4px 0 12px #0008}
+.book .number{color:#f0f3f0!important;letter-spacing:.16em;font-size:.54rem!important;text-shadow:0 1px 8px #000}
+.book .symbol{font-size:2rem!important;color:#fff;filter:drop-shadow(0 2px 12px #000b)!important}
+.book strong{font-size:clamp(1rem,2.1vw,1.36rem)!important;line-height:1.06;text-shadow:0 2px 18px #000,0 1px 5px #000;position:relative;z-index:2}
+.book small{color:#f3f5f1!important;text-shadow:0 1px 8px #000;line-height:1.45!important;font-size:.68rem!important;position:relative;z-index:2}
+.book.active{border-color:#e7eee8b0!important;box-shadow:0 28px 95px #000b,0 0 0 1px #d9e8e020,inset 0 1px #ffffff45!important}
+.book-pages{background:repeating-linear-gradient(to bottom,#e5e9e1 0 1px,#5c635d 1px 3px)!important;opacity:.65}
+.book-cover-tag,.book-cover-caption{position:relative;z-index:2;font-size:.53rem;letter-spacing:.2em;color:#f2f4ef;text-shadow:0 1px 9px #000}
+.book-cover-caption{font-size:.5rem;opacity:.85;letter-spacing:.17em}
+.quote-card-line{background:linear-gradient(90deg,#e7eee8,transparent)!important;box-shadow:0 0 15px #dce9e522!important}
+.ismayanti-love{background:#090c0d url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat!important;isolation:isolate}
+.ismayanti-love:before{background:linear-gradient(180deg,#07090bba,#07090bd9),radial-gradient(circle at 50% 50%,#e8bdcf20,transparent 42%),repeating-linear-gradient(120deg,transparent 0 38px,#d8e7e008 39px 40px)!important;opacity:1}
+.ismayanti-love:after{color:#c1cbc6}
+.love-tab{background:#0a0d0dcc!important;border-color:#d5e2db60!important;box-shadow:0 0 0 1px #ffffff08,inset 0 0 25px #dce9e009!important}
+.love-tab:before{background:linear-gradient(100deg,transparent,#e3eee829,transparent)!important}
+.love-tab-heart,.love-tab-spark{color:#f0c6d3}
+.love-card{background:linear-gradient(180deg,#12191aef,#090d0ff5 74%)!important;border-color:#d5e2db4c!important}
+.love-card:after{background:linear-gradient(120deg,transparent 15%,#d7e8df09 50%,transparent 80%)!important}
+.love-cinema{background:linear-gradient(180deg,#06090bd9,#080b0ff0),url("https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=2200&q=85") center/cover no-repeat!important}
+.love-cinema:before{opacity:.2}
+.love-cinema-orbit{border-color:#d7e7df50!important;box-shadow:0 0 48px #d6e6de17,inset 0 0 35px #9bb8ad12!important}
+.love-cinema-orbit.orbit-b{border-color:#e9c8d75a!important}
+.love-cinema-heart,.love-cinema-giant-heart,.love-cinema-burst span{color:#f0b9cf!important;text-shadow:0 0 16px #d982a8,0 0 48px #b67c9d,0 0 100px #8b799f!important}
+.love-cinema h2{background:linear-gradient(100deg,#fff,#f0c5d6,#cadbd4)!important;color:transparent;background-clip:text!important;-webkit-background-clip:text!important}
+.love-cinema-progress span{background:linear-gradient(90deg,#e8c3d2,#cadbd4,#fff)!important;box-shadow:0 0 14px #e7c8d8!important;animation-duration:6s!important}
+.love-cinema-burst span{animation-duration:6s!important}
+.love-cinema-reform{color:#eabbd0!important;text-shadow:0 0 20px #e39ab9,0 0 55px #c88bb3,0 0 110px #8f85a9!important}
+@keyframes loveCardGlowPulse{0%,100%{box-shadow:0 0 0 #eac5d000,0 24px 80px #0007}50%{box-shadow:0 0 55px #eac5d02b,0 24px 80px #0009}}
+.love-modal.open .love-card{animation:loveCardGlowPulse 3.8s ease-in-out infinite}
+.love-heart.big{animation:heartFloat 1.6s ease-in-out infinite!important}
+.love-heart.small{animation-duration:2.2s!important}
+.love-heart-scene:before,.love-heart-scene:after{content:"✦ · ✧ · ✦";position:absolute;left:50%;top:50%;width:150%;color:#e7c4d2;letter-spacing:.9em;font-size:.8rem;white-space:nowrap;opacity:.65;transform:translate(-50%,-50%);animation:loveOrbitVisual 8s linear infinite;pointer-events:none}
+.love-heart-scene:after{content:"✧ ✦ ✧";font-size:1.2rem;opacity:.35;animation-direction:reverse;animation-duration:5s}
+@keyframes loveOrbitVisual{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@media(max-width:650px){.stage:before{font-size:.46rem;letter-spacing:.12em}.book-cover-tag,.book-cover-caption{font-size:.43rem}.book{padding:13px!important}.book small{-webkit-line-clamp:4;font-size:.62rem!important}.book .symbol{font-size:1.65rem!important}}
+@media(prefers-reduced-motion:reduce){.love-modal.open .love-card,.love-heart-scene:before,.love-heart-scene:after{animation:none!important}}
