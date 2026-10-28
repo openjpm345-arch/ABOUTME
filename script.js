@@ -11,7 +11,31 @@ const chapters=[
 {icon:'✦',label:'BAB BERIKUTNYA',title:'The story is still becoming.',text:'There is always room for another memory, another idea, and another chapter.',short:'Masih ada bab berikutnya.',idTitle:'Ceritanya masih berlanjut.',idText:'Selalu ada ruang untuk kenangan baru, ide baru, dan bab berikutnya.',photo:'e5ce7590f1d0464062dd8cef7717f173.jpg'}
 ];
 const field=document.getElementById('bookField'),dots=document.getElementById('dots'),story=document.getElementById('story');let active=0,startX=0,startY=0,dragging=false,moved=false;const cards=[];
-chapters.forEach((c,i)=>{const b=document.createElement('button');b.className='book';b.type='button';b.setAttribute('aria-label','Baca kutipan: '+c.label);b.style.setProperty('--book-photo','url("'+c.photo+'")');b.innerHTML='<span class="book-cover-tag">BEYOND / ME</span><span class="number">'+String(i+1).padStart(2,'0')+' / VISUAL STORY</span><span class="symbol">'+c.icon+'</span><strong>'+c.idTitle+'</strong><small>'+c.idText+'</small><span class="book-pages" aria-hidden="true"></span><span class="book-spark" aria-hidden="true">✦</span><span class="shine"></span><span class="quote-card-line" aria-hidden="true"></span><span class="book-cover-caption">'+c.label+'</span>';b.addEventListener('click',()=>{if(!moved)select(i,true)});field.appendChild(b);cards.push(b);const d=document.createElement('button');d.className='dotbtn';d.type='button';d.setAttribute('aria-label','Go to '+c.label);d.addEventListener('click',()=>select(i,true));dots.appendChild(d)});
+let flyingBooks=false,flyReturnTimer=null;
+function flyBooksAround(){
+ if(flyingBooks||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ flyingBooks=true;clearTimeout(flyReturnTimer);
+ const snapshots=cards.map(book=>({book,rect:book.getBoundingClientRect(),style:{position:book.style.position,left:book.style.left,top:book.style.top,width:book.style.width,height:book.style.height,margin:book.style.margin,transform:book.style.transform,zIndex:book.style.zIndex,opacity:book.style.opacity,pointerEvents:book.style.pointerEvents}}));
+ snapshots.forEach(({book,rect},i)=>{
+  book.style.position='fixed';book.style.left=rect.left+'px';book.style.top=rect.top+'px';book.style.width=rect.width+'px';book.style.height=rect.height+'px';book.style.margin='0';book.style.transform='none';book.style.zIndex=String(999+i);book.style.opacity='1';book.style.pointerEvents='none';
+  const w=window.innerWidth,h=window.innerHeight;
+  const dx1=(Math.random()-.5)*Math.max(120,w*.7),dy1=(Math.random()-.5)*Math.max(120,h*.7);
+  const dx2=(Math.random()-.5)*Math.max(150,w*.9),dy2=(Math.random()-.5)*Math.max(150,h*.8);
+  const dx3=(Math.random()-.5)*Math.max(120,w*.65),dy3=(Math.random()-.5)*Math.max(120,h*.65);
+  book.animate([
+   {transform:'translate3d(0,0,0) rotate(0deg) scale(1)',offset:0},
+   {transform:'translate3d('+dx1+'px,'+dy1+'px,0) rotate('+(i%2?18:-18)+'deg) scale(.9)',offset:.22},
+   {transform:'translate3d('+dx2+'px,'+dy2+'px,0) rotate('+(i%2?-24:24)+'deg) scale(.78)',offset:.48},
+   {transform:'translate3d('+dx3+'px,'+dy3+'px,0) rotate('+(i%2?12:-12)+'deg) scale(.92)',offset:.76},
+   {transform:'translate3d(0,0,0) rotate(0deg) scale(1)',offset:1}
+  ],{duration:5000,delay:i*35,easing:'cubic-bezier(.22,.7,.2,1)',fill:'forwards'});
+ });
+ flyReturnTimer=setTimeout(()=>{
+  snapshots.forEach(({book,style})=>{book.getAnimations().forEach(animation=>animation.cancel());Object.assign(book.style,style)});
+  render();flyingBooks=false;
+ },5400);
+}
+chapters.forEach((c,i)=>{const b=document.createElement('button');b.className='book';b.type='button';b.setAttribute('aria-label','Baca kutipan: '+c.label);b.style.setProperty('--book-photo','url("'+c.photo+'")');b.innerHTML='<span class="book-cover-tag">BEYOND / ME</span><span class="number">'+String(i+1).padStart(2,'0')+' / VISUAL STORY</span><span class="symbol">'+c.icon+'</span><strong>'+c.idTitle+'</strong><small>'+c.idText+'</small><span class="book-pages" aria-hidden="true"></span><span class="book-spark" aria-hidden="true">✦</span><span class="shine"></span><span class="quote-card-line" aria-hidden="true"></span><span class="book-cover-caption">'+c.label+'</span>';b.addEventListener('click',()=>{if(!moved){select(i,true);flyBooksAround()}});field.appendChild(b);cards.push(b);const d=document.createElement('button');d.className='dotbtn';d.type='button';d.setAttribute('aria-label','Go to '+c.label);d.addEventListener('click',()=>select(i,true));dots.appendChild(d)});
 function render(){const total=cards.length;cards.forEach((b,i)=>{let delta=((i-active+total+total/2)%total)-Math.floor(total/2);if(total%2===0&&delta===total/2)delta=-total/2;const abs=Math.abs(delta),x=delta*108,z=-abs*76,y=abs*9,ry=delta*-19;b.style.transform='translate3d('+x+'px,'+y+'px,'+z+'px) rotateY('+ry+'deg) rotateZ('+(delta*1.5)+'deg) scale('+(1-abs*.12)+')';b.style.zIndex=20-abs;b.style.opacity=abs>2?'0':String(1-abs*.17);b.style.pointerEvents=abs>2?'none':'auto';b.classList.toggle('active',i===active);b.setAttribute('aria-pressed',String(i===active))});[...dots.children].forEach((d,i)=>d.setAttribute('aria-current',String(i===active)))}
 function select(i,scroll){active=(i+chapters.length)%chapters.length;render();const c=chapters[active];story.classList.add('changing');setTimeout(()=>{document.getElementById('storyKicker').textContent='CHAPTER 0'+(active+1)+' / '+c.label;document.getElementById('storyTitle').textContent=typeof storyLanguage!=='undefined'&&storyLanguage==='id'?c.idTitle:c.title;document.getElementById('storyText').textContent=typeof storyLanguage!=='undefined'&&storyLanguage==='id'?c.idText:c.text;story.classList.remove('changing')},180);if(scroll&&window.innerWidth<700)document.getElementById('about').scrollIntoView({behavior:'smooth',block:'center'})}
 document.getElementById('prev').addEventListener('click',()=>select(active-1,false));document.getElementById('next').addEventListener('click',()=>select(active+1,false));document.getElementById('openAbout').addEventListener('click',()=>{select(0,false);document.getElementById('about').scrollIntoView({behavior:'smooth',block:'center'})});
